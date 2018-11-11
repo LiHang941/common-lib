@@ -1,4 +1,4 @@
-package xyz.lihang.common.tool;
+package com.github.lihang941.tool;
 
 import org.apache.commons.io.IOUtils;
 

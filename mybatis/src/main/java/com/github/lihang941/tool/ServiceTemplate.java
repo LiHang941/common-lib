@@ -1,4 +1,4 @@
-package xyz.lihang.common.tool;
+package com.github.lihang941.tool;
 
 
 import com.alibaba.fastjson.JSONObject;
@@ -6,16 +6,12 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -40,18 +36,18 @@ public class ServiceTemplate {
     }
 
 
-    public static List<ClassInfo> createService(String mapperPath) {
+    public static List<ClassInfo> createService(String mapperPath, Config config) {
         return Arrays.asList(new File(mapperPath).listFiles())
                 .stream()
                 .filter(File::isFile)
                 .map(file -> {
-                    for (int i = 0; i < MyBatisGeneratorTool.TABLE.size(); i++) {
-                        String tableName = MyBatisGeneratorTool.TABLE.getJSONObject(i).getString("tableName");
+                    for (Table table : config.TABLES) {
+                        String tableName = table.getTableName();
                         if (file.getName().toLowerCase().indexOf(tableName.replace("_", "").toLowerCase()) != -1) {
                             ClassInfo classInfo = ClassInfo.parseFile(file);
-                            classInfo.createService = MyBatisGeneratorTool.TABLE.getJSONObject(i).getBoolean("createService") == null ? true : MyBatisGeneratorTool.TABLE.getJSONObject(i).getBoolean("createService");
-                            classInfo.createConvert = MyBatisGeneratorTool.TABLE.getJSONObject(i).getBoolean("createConvert") == null ? true : MyBatisGeneratorTool.TABLE.getJSONObject(i).getBoolean("createConvert");
-                            classInfo.createResource = MyBatisGeneratorTool.TABLE.getJSONObject(i).getBoolean("createResource") == null ? true : MyBatisGeneratorTool.TABLE.getJSONObject(i).getBoolean("createResource");
+                            classInfo.createService = table.isCreateService();
+                            classInfo.createConvert = table.isCreateConvert();
+                            classInfo.createResource = table.isCreateResource();
                             return classInfo;
                         }
                     }
