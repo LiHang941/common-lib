@@ -102,6 +102,8 @@ gradle-app.setting
 .idea/
 common/out/
 common/build/
+mybatis/out/
+mybatis/build/
 local.properties
 
 
