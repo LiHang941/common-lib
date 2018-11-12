@@ -79,7 +79,7 @@ public class GrpcClientRegister implements BeanPostProcessor {
                 }
                 GrpcClient grpcClient = field.getAnnotation(GrpcClient.class);
                 ManagedChannelConfig managedChannelConfig = managedChannelConfigMap.get(grpcClient.serverName());
-                Assert.isNull(managedChannelConfig, "rpc server name [" + grpcClient.serverName() + "] 不存在");
+                Assert.notNull(managedChannelConfig, "rpc server name [" + grpcClient.serverName() + "] 不存在");
                 ManagedChannel managedChannel = ManagedChannelBuilder
                         .forAddress(managedChannelConfig.getAddress(), managedChannelConfig.getPort())
                         .usePlaintext(true)
