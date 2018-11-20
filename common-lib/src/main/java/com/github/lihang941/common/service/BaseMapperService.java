@@ -31,11 +31,11 @@ public abstract class BaseMapperService<T, F, PK extends Serializable> implement
     public Page<T> offsetList(int offset, int size) {
         return PageHelper.offsetPage(offset, size).doSelectPage(() -> baseMapper.selectByExample(null));
     }
-
+    @Override
     public Page<T> pageList(PageNumBean pageNumBean) {
         return PageHelper.startPage(pageNumBean.getPageNum(), pageNumBean.getPageSize()).doSelectPage(() -> baseMapper.selectByExample(null));
     }
-
+    @Override
     public Page<T> offsetList(OffsetBean offSetBean) {
         return PageHelper.offsetPage(offSetBean.getOffSet(), offSetBean.getSize()).doSelectPage(() -> baseMapper.selectByExample(null));
     }
@@ -43,7 +43,6 @@ public abstract class BaseMapperService<T, F, PK extends Serializable> implement
     public List<T> selectByExample(F example) {
         return baseMapper.selectByExample(example);
     }
-
 
     public T selectOneByExample(F example) {
         List<T> ts = baseMapper.selectByExample(example);
@@ -57,6 +56,24 @@ public abstract class BaseMapperService<T, F, PK extends Serializable> implement
     public long countByExample(F example) {
         return baseMapper.countByExample(example);
     }
+
+    @Transactional
+    public int deleteByExample(F example) {
+        return baseMapper.deleteByExample(example);
+    }
+
+    @Transactional
+    public int updateByExampleSelective(T record,
+                                        F example) {
+        return baseMapper.updateByExampleSelective(record, example);
+    }
+
+    @Transactional
+    public int updateByExample(T record, F example) {
+        return baseMapper.updateByExample(record, example);
+    }
+
+
 
     @Override
     public T get(PK id) {
@@ -99,21 +116,6 @@ public abstract class BaseMapperService<T, F, PK extends Serializable> implement
     }
 
 
-    @Transactional
-    public int deleteByExample(F example) {
-        return baseMapper.deleteByExample(example);
-    }
-
-    @Transactional
-    public int updateByExampleSelective(T record,
-                                        F example) {
-        return baseMapper.updateByExampleSelective(record, example);
-    }
-
-    @Transactional
-    public int updateByExample(T record, F example) {
-        return baseMapper.updateByExample(record, example);
-    }
 
 
 

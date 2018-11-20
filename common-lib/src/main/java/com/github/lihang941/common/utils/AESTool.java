@@ -13,18 +13,6 @@ import java.util.Base64;
  */
 public class AESTool {
 
-    public static void main(String args[]) throws Exception {
-//        String key  = Long.toString(System.currentTimeMillis());
-//        String data  = "123456";
-//        System.out.println("data = [" + data + "]");
-//        System.out.println("key = [" + key + "]");
-//        String encrypt = encrypt(data,key);
-//        System.out.println(encrypt);
-//        System.out.println(desEncrypt(encrypt,key));
-       System.out.println(desEncrypt("JKRGsBekxOrZmkN0p4zM3w==","1526886127011"));
-    }
-
-
     private static String keyHandle (String key){
         char [] bytes = new char[16];
         for(int i=0;i<bytes.length;i++){

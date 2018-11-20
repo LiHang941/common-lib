@@ -10,8 +10,8 @@ import io.vertx.grpc.VertxServerBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 
 import javax.annotation.PreDestroy;
 import java.io.IOException;
@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  * @author : lihang1329@gmail.com
  * @since : 2018/7/9
  */
-public class GrpcScanService implements ApplicationListener<ContextRefreshedEvent> {
+public class GrpcScanService {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private int port;
@@ -35,7 +35,7 @@ public class GrpcScanService implements ApplicationListener<ContextRefreshedEven
         this.vertx = vertx;
     }
 
-    @Override
+    @EventListener
     public void onApplicationEvent(ContextRefreshedEvent event) {
         ApplicationContext applicationContext = event.getApplicationContext();
         VertxServerBuilder vertxServerBuilder = VertxServerBuilder.forAddress(vertx, "127.0.0.1", port);
@@ -60,7 +60,7 @@ public class GrpcScanService implements ApplicationListener<ContextRefreshedEven
                 );
         try {
             vertxServer = vertxServerBuilder.build().start();
-            logger.info("Grpc Server start success port : {}", port);
+            logger.info("Vertx Grpc Server start success port : {}", port);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

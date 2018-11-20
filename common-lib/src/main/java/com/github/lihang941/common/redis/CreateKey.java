@@ -1,6 +1,7 @@
 package com.github.lihang941.common.redis;
 
 /**
+ * key 生成器
  * @author : lihang1329@gmail.com
  * @since : 2018/8/30
  */
