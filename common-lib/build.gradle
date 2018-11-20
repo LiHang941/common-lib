@@ -1,0 +1,23 @@
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.github.lihang941'
+            artifactId = 'common-lib'
+            version = '0.0.1'
+            from components.java
+        }
+    }
+}
+
+dependencies {
+    compileOnly "org.apache.commons:commons-io:$commonIOVersion"
+    compileOnly "org.apache.commons:commons-lang3:$commonLang3Version"
+    compileOnly "com.alibaba:fastjson:$fastjsonVersion"
+    compileOnly "org.mdvsc.common:service:$serviceCommonVersion"
+    compileOnly "org.springframework.boot:spring-boot-starter-data-redis:$springBootVersion"
+    compileOnly "com.github.pagehelper:pagehelper:$pagehelperVersion"
+    compileOnly "org.mybatis:mybatis:$mybatisVersion"
+    compileOnly "io.vertx:vertx-grpc:$vertxVersion"
+    compileOnly "com.squareup.okhttp3:okhttp:$OkHttpVersion"
+    compileOnly "commons-codec:commons-codec:$commonsCodecVersion"
+}

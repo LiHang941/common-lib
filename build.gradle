@@ -18,6 +18,9 @@ buildscript {
 
 subprojects {
     apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
     compileJava.dependsOn(processResources)
@@ -26,7 +29,6 @@ subprojects {
     }
     repositories {
         maven { url "http://dev.cqultra.com:8008/nexus/repository/mdvsc-releases/" }
-        maven { url "http://dev.cqultra.com:8008/nexus/repository/mjoy-services/" }
         maven { url "http://maven.aliyun.com/nexus/content/groups/public"}
         maven { url "https://jitpack.io" }
         mavenCentral()
