@@ -1,4 +1,4 @@
-package com.github.lihang941.common.rpc;
+package com.github.lihang941.common.vertx;
 
 import io.grpc.BindableService;
 import io.grpc.ServerInterceptor;
@@ -29,16 +29,18 @@ public class GrpcScanService {
     private int port;
     private VertxServer vertxServer;
     private Vertx vertx;
+    private String host;
 
-    public GrpcScanService(int port, Vertx vertx) {
+    public GrpcScanService(String host,int port, Vertx vertx) {
         this.port = port;
         this.vertx = vertx;
+        this.host = host;
     }
 
     @EventListener
     public void onApplicationEvent(ContextRefreshedEvent event) {
         ApplicationContext applicationContext = event.getApplicationContext();
-        VertxServerBuilder vertxServerBuilder = VertxServerBuilder.forAddress(vertx, "127.0.0.1", port);
+        VertxServerBuilder vertxServerBuilder = VertxServerBuilder.forAddress(vertx, host, port);
         event.getApplicationContext().getBeansWithAnnotation(GrpcService.class).values()
                 .stream()
                 .filter(obj -> obj != null && obj instanceof BindableService)

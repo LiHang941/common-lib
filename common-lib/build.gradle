@@ -10,14 +10,18 @@ publishing {
 }
 
 dependencies {
-    compileOnly "org.apache.commons:commons-io:$commonIOVersion"
-    compileOnly "org.apache.commons:commons-lang3:$commonLang3Version"
-    compileOnly "com.alibaba:fastjson:$fastjsonVersion"
-    compileOnly "org.mdvsc.common:service:$serviceCommonVersion"
+    compile "org.apache.commons:commons-io:$commonIOVersion"
+    compile "org.apache.commons:commons-lang3:$commonLang3Version"
+    compile "com.alibaba:fastjson:$fastjsonVersion"
     compileOnly "org.springframework.boot:spring-boot-starter-data-redis:$springBootVersion"
     compileOnly "com.github.pagehelper:pagehelper:$pagehelperVersion"
     compileOnly "org.mybatis:mybatis:$mybatisVersion"
     compileOnly "io.vertx:vertx-grpc:$vertxVersion"
     compileOnly "com.squareup.okhttp3:okhttp:$OkHttpVersion"
     compileOnly "commons-codec:commons-codec:$commonsCodecVersion"
+    compileOnly project(":rest-mapper")
+
+    testCompile "org.springframework:spring-context:$springVersion"
+    testCompile project(":rest-mapper")
+    testCompile "ch.qos.logback:logback-classic:1.2.3"
 }

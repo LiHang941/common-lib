@@ -1,3 +1,4 @@
 include 'code-generator'
 include 'common-lib'
+include 'rest-mapper'
 

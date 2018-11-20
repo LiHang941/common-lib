@@ -55,7 +55,6 @@ public class MyConfig {
 
 ```java
 @GrpcService
-@Component
 public class MyRpcService extends CurrencyServiceGrpc.CurrencyServiceVertxImplBase {
 
     @Override

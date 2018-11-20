@@ -100,10 +100,9 @@ gradle-app.setting
 
 .gradle/
 .idea/
-common/out/
-common/build/
-mybatis/out/
-mybatis/build/
-local.properties
+common-lib/out/
+common-lib/build/
+code-generator/out/
+code-generator/build/
 
 

@@ -1,6 +1,8 @@
-package com.github.lihang941.common.rpc;
+package com.github.lihang941.common.vertx;
 
 import io.grpc.ServerInterceptor;
+import org.springframework.core.annotation.AliasFor;
+import org.springframework.stereotype.Component;
 
 import java.lang.annotation.*;
 
@@ -11,6 +13,11 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
+@Component
 public @interface GrpcService {
+
+    @AliasFor(annotation = Component.class)
+    String value() default "";
+
     Class<? extends ServerInterceptor>[] interceptor() default {};
 }

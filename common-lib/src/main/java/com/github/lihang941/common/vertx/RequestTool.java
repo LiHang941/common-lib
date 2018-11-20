@@ -1,10 +1,10 @@
 package com.github.lihang941.common.vertx;
 
+import com.github.lihang941.vertx.rest.Serializer;
 import com.github.pagehelper.Page;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 import org.apache.commons.lang3.StringUtils;
-import org.mdvsc.vertx.rest.Serializer;
 import com.github.lihang941.common.page.OffsetBean;
 
 import java.util.List;
