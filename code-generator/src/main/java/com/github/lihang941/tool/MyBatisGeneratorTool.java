@@ -1,6 +1,8 @@
 package com.github.lihang941.tool;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.lihang941.common.bean.BeanConvert;
+import com.github.lihang941.common.utils.XMLUtils;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
@@ -8,8 +10,6 @@ import org.mybatis.generator.internal.DefaultShellCallback;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
-import com.github.lihang941.common.bean.BeanConvertMap;
-import com.github.lihang941.common.utils.XMLUtils;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -62,7 +62,7 @@ public class MyBatisGeneratorTool {
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(configInputStream);
         Element documentElement = document.getDocumentElement();
-        setAttr((Element) documentElement.getElementsByTagName("jdbcConnection").item(0), BeanConvertMap.beanToJSONObject(generateConfig.JDBC_CONNECTION_CONFIG));
+        setAttr((Element) documentElement.getElementsByTagName("jdbcConnection").item(0), BeanConvert.beanToJSONObject(generateConfig.JDBC_CONNECTION_CONFIG));
         Element javaClientGenerator = (Element) documentElement.getElementsByTagName("javaClientGenerator").item(0);
 
         setTarget((Element) documentElement.getElementsByTagName("sqlMapGenerator").item(0));
