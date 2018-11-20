@@ -1,7 +1,20 @@
 ## 开发工具库
 [![](https://jitpack.io/v/LiHang941/common-lib.svg)](https://jitpack.io/#LiHang941/common-lib)
 
+
 ### 集成自定义spring工具包,开箱即用
+
+```
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+dependencies {
+    testCompile 'com.github.LiHang941.common-lib:common-lib:lastVersion'
+}
+```
+
 
 - 日志自动注入
 
