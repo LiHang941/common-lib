@@ -1,5 +1,6 @@
 package com.github.lihang941.common.vertx;
 
+import com.github.lihang941.common.page.PageNumBean;
 import com.github.lihang941.vertx.rest.Serializer;
 import com.github.pagehelper.Page;
 import io.vertx.core.http.HttpServerRequest;
@@ -10,6 +11,7 @@ import com.github.lihang941.common.page.OffsetBean;
 import java.util.List;
 import java.util.Map;
 
+import static com.github.lihang941.common.page.PageConstants.PAGE_NUM;
 import static com.github.lihang941.common.page.PageConstants.PAGE_SIZE;
 
 /**
@@ -60,8 +62,8 @@ public abstract class RequestTool {
 
 
     public static OffsetBean toOffsetBean(Map<String, String> map) {
-        int offset ;
-        int size ;
+        int offset;
+        int size;
         try {
             offset = Integer.parseInt(map.getOrDefault("Offset", "0"));
             size = Integer.parseInt(map.getOrDefault("Size", "0"));
@@ -75,6 +77,25 @@ public abstract class RequestTool {
             offSetBean.setSize(PAGE_SIZE);
         }
         return offSetBean;
+    }
+
+
+    public static PageNumBean toPageNumBean(Map<String, String> map) {
+        int pageNum;
+        int size;
+        try {
+            pageNum = Integer.parseInt(map.getOrDefault("Page", "0"));
+            size = Integer.parseInt(map.getOrDefault("Size", "0"));
+        } catch (NumberFormatException e) {
+            pageNum = PAGE_NUM;
+            size = PAGE_SIZE;
+        }
+        PageNumBean pageNumBean = new PageNumBean().setPageNum(pageNum).setPageSize(size);
+        if (pageNumBean.getPageNum() <= 0) pageNumBean.setPageNum(1);
+        if (pageNumBean.getPageSize() <= 0) {
+            pageNumBean.setPageSize(PAGE_SIZE);
+        }
+        return pageNumBean;
     }
 
 

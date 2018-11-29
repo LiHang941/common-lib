@@ -43,7 +43,7 @@ public class FileService {
     public String addFile(String fileName, String uploadFileName, String path, long maxFileSize, String[]... whiteList) throws IOException {
         File uploadFile = new File(uploadFileName);
         if (maxFileSize != -1 && uploadFile.length() > maxFileSize) {
-            throw new IOException("File should be less than " + getFormatSize(maxFileSize));
+            throw new IOException("UploadFile should be less than " + getFormatSize(maxFileSize));
         }
         String suffix = FileTool.parseSuffix(fileName);
         if (whiteList != null && whiteList.length > 0) {

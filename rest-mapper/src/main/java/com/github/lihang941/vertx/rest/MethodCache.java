@@ -70,7 +70,7 @@ public class MethodCache {
                 if (annotation instanceof FieldMap
                             || annotation instanceof QueryMap
                             || annotation instanceof HeaderMap
-                            || annotation instanceof FileMap
+                            || annotation instanceof UploadFileMap
                             || annotation instanceof PathMap) {
                     mapSize++;
                 } else if (annotation instanceof Field) {
@@ -83,7 +83,7 @@ public class MethodCache {
                     if (!Constants.isNullValue(((Path)annotation).defaultValue())) defaultValueSize++;
                 } else if (annotation instanceof Body) {
                     if (!Constants.isNullValue(((Body)annotation).defaultValue())) defaultValueSize++;
-                } else if (annotation instanceof File) {
+                } else if (annotation instanceof UploadFile) {
                     fileSize++;
                 } else continue;
                 size++;
@@ -271,8 +271,8 @@ public class MethodCache {
                     Path a = (Path) annotation;
                     value = transParam(context.pathParam(a.value()), withDefaultValue ? a.defaultValue() : null, parameterType, separator, serializer);
                     break;
-                } else if (annotation instanceof File) {
-                    Stream<FileUpload> files = context.fileUploads().stream().filter(fileUpload -> ((File) annotation).value().equals(fileUpload.name()));
+                } else if (annotation instanceof UploadFile) {
+                    Stream<FileUpload> files = context.fileUploads().stream().filter(fileUpload -> ((UploadFile) annotation).value().equals(fileUpload.name()));
                     if (parameterType.isArray()) {
                         value = CollectionUtils.toTypedArray(files.collect(Collectors.toList()), parameterType.getComponentType());
                     } else if (List.class.isAssignableFrom(parameterType)) {
@@ -281,10 +281,10 @@ public class MethodCache {
                         value = files.findFirst().orElse(null);
                     }
                     break;
-                } else if (annotation instanceof FileSet) {
+                } else if (annotation instanceof UploadFileSet) {
                     value = context.fileUploads();
                     break;
-                } else if (annotation instanceof FileMap) {
+                } else if (annotation instanceof UploadFileMap) {
                     value = context.fileUploads().parallelStream().collect(Collectors.toMap(FileUpload::name, (file) -> file, (k, v) -> v));
                     break;
                 } else if (annotation instanceof QueryMap) {

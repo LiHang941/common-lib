@@ -9,4 +9,6 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.PARAMETER })
-public @interface FileMap { }
+public @interface UploadFile {
+    String value();
+}

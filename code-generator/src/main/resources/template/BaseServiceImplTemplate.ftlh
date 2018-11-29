@@ -1,8 +1,6 @@
 <#include "./head.ftlh">
-
-
 @Service
-public class ${entityName}ServiceImpl extends BaseMapperService<${entityName}, ${exampleName}, ${idType}> implements ${entityName}Service {
+public class ${entityName}ServiceImpl extends BaseMapperService<${entityName}, ${idType}> implements ${entityName}Service {
 
     private ${entityName}Mapper ${entityName?uncap_first}Mapper;
 

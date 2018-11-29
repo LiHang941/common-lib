@@ -106,3 +106,5 @@ code-generator/out/
 code-generator/build/
 
 
+/log/
+.vertx/

@@ -1,36 +1,13 @@
 package com.github.lihang941.common.mapper;
 
-import org.apache.ibatis.annotations.Param;
-
-import java.io.Serializable;
-import java.util.List;
+import tk.mybatis.mapper.common.Mapper;
+import tk.mybatis.mapper.common.MySqlMapper;
 
 /**
  * @author : lihang1329@gmail.com
  * @since : 2018/9/3
  */
-public interface BaseMapper<T, E, PK extends Serializable> {
-
-    long countByExample(E example);
-
-    int deleteByExample(E example);
-
-    int deleteByPrimaryKey(PK pk);
-
-    int insert(T record);
-
-    int insertSelective(T record);
-
-    List<T> selectByExample(E example);
-
-    T selectByPrimaryKey(PK pk);
-
-    int updateByExampleSelective(@Param("record") T record,
-                                 @Param("example") E example);
-
-    int updateByExample(@Param("record") T record, @Param("example") E example);
-
-    int updateByPrimaryKeySelective(T record);
-
-    int updateByPrimaryKey(T record);
+public interface BaseMapper<T> extends Mapper<T>, MySqlMapper<T> {
+    //TODO
+    //FIXME 特别注意，该接口不能被扫描到，否则会出错
 }

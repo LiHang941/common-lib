@@ -13,6 +13,8 @@ dependencies {
     compile "org.apache.commons:commons-io:$commonIOVersion"
     compile "org.apache.commons:commons-lang3:$commonLang3Version"
     compile "com.alibaba:fastjson:$fastjsonVersion"
+
+    compileOnly "tk.mybatis:mapper:$tkMybatisVersion"
     compileOnly "org.springframework.boot:spring-boot-starter-data-redis:$springBootVersion"
     compileOnly "com.github.pagehelper:pagehelper:$pagehelperVersion"
     compileOnly "org.mybatis:mybatis:$mybatisVersion"
@@ -22,6 +24,7 @@ dependencies {
     compileOnly project(":rest-mapper")
 
     testCompile "org.springframework:spring-context:$springVersion"
-    testCompile project(":rest-mapper")
     testCompile "ch.qos.logback:logback-classic:1.2.3"
+    testCompile project(":rest-mapper")
+   
 }

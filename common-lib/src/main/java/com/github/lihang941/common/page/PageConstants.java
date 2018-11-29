@@ -8,6 +8,6 @@ public interface PageConstants {
 
     int PAGE_SIZE = 50;
 
-    int OFF_SIZE = 50;
+    int PAGE_NUM = 1;
 
 }
