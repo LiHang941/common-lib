@@ -54,6 +54,7 @@ public class DtoAndConvert extends TemplateGenerator {
         }
         Matcher contentMatcher = Pattern.compile("\\{[^\\\\]+\\}").matcher(content);
         List<String> importList = FileTool.parseFileToImportList(content);
+        importList.remove("javax.persistence.*");
         if (contentMatcher.find()) {
             Matcher matcher = Pattern.compile("^[^\\*\\n]+@\\w+(\\(.+\\))?$", Pattern.MULTILINE).matcher(contentMatcher.group());
             String newContent = matcher.replaceAll("");
