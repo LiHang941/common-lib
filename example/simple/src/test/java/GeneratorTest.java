@@ -11,6 +11,8 @@ import com.github.lihang941.generator.config.dao.JdbcConfig;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,28 +28,29 @@ public class GeneratorTest {
 
     @Before
     public void before() {
+        String basePath = Paths.get("src/main/java/").toFile().getAbsolutePath();
+        String basePackage = "com.github.lihang941.example";
 
-
-        String basePath = "F:\\迅雷下载\\imooc-videos-dev 20180530 精简版\\src";
         DaoConfig daoConfig = new DaoConfig(
-                new PathPackage(basePath, "com.github.lihang941.entity"),
-                new PathPackage(basePath, "resource"),
-                new PathPackage(basePath, "com.github.lihang941.dao"),
+                new PathPackage(basePath, basePackage + ".entity"),
+                new PathPackage(new File(basePath).getParentFile().getAbsolutePath(), "resources/mapper"),
+                new PathPackage(basePath, basePackage + ".dao"),
                 new JdbcConfig()
-                        .setConnectionURL("jdbc:postgresql://localhost:5432/btoken_project")
+                        .setConnectionURL("jdbc:postgresql://localhost:5432/test")
                         .setDriverClass("org.postgresql.Driver")
-                        .setUserId("btoken_project")
-                        .setPassword("a123520"),
+                        .setUserId("test")
+                        .setPassword("test"),
                 Arrays.asList(
-                        new Table("id", "bt_unlock_record")
+                        new Table("user_id", "user"),
+                        new Table(true, "id", "test")
                 )
         ).setDelimiter(DaoConfig.POSTGRESQL_DELIMITER);
 
         context.getGeneratorList().add(new DaoAndPojo(daoConfig));
 
         DtoConfig dtoConfig = new DtoConfig(
-                new PathPackage(basePath, "com.github.lihang941.dto"),
-                new PathPackage(basePath, "com.github.lihang941.convert"));
+                new PathPackage(basePath, basePackage + ".dto"),
+                new PathPackage(basePath, basePackage + ".convert"));
 
         context.getGeneratorList().add(new DtoAndConvert(dtoConfig,
                 TemplateGenerator.mkdir(daoConfig.getJavaModel()).getAbsolutePath()
@@ -57,8 +60,8 @@ public class GeneratorTest {
         ));
 
         ServiceConfig serviceConfig = new ServiceConfig(
-                new PathPackage(basePath, "com.github.lihang941.service"),
-                new PathPackage(basePath, "com.github.lihang941.service.impl")
+                new PathPackage(basePath, basePackage + ".service"),
+                new PathPackage(basePath, basePackage + ".service.impl")
         );
 
         context.getGeneratorList().add(new Service(
@@ -68,7 +71,7 @@ public class GeneratorTest {
 
         context.getGeneratorList().add(new VertxResource(
                 new ResourceConfig(
-                        new PathPackage(basePath, "com.github.lihang941.resource")
+                        new PathPackage(basePath, basePackage + ".resource")
                 ),
                 dtoConfig,
                 serviceConfig,

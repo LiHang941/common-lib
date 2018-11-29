@@ -1,5 +1,6 @@
 <#include "./head.ftlh">
 @URL("${entityName?uncap_first}")
+@Controller
 public class ${entityName}Resource {
 
     @Autowired
