@@ -16,5 +16,5 @@ dependencies {
     compile 'org.freemarker:freemarker:2.3.28'
     compile project(":common-lib")
 
-    testCompile "org.postgresql:postgresql:42.2.2"
+  
 }

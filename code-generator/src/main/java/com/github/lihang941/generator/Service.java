@@ -3,6 +3,7 @@ package com.github.lihang941.generator;
 import com.alibaba.fastjson.JSONObject;
 import com.github.lihang941.TemplateGenerator;
 import com.github.lihang941.generator.config.ServiceConfig;
+import com.github.lihang941.generator.config.dao.DaoConfig;
 import com.github.lihang941.generator.tool.FileTool;
 
 import java.io.File;
@@ -21,16 +22,18 @@ public class Service extends TemplateGenerator {
     private List<File> files;
 
     private ServiceConfig serviceConfig;
+    private DaoConfig daoConfig;
     private File servicePath;
     private File serviceImplPath;
 
-    public Service(ServiceConfig serviceConfig, String modePath) {
-        this(serviceConfig, Arrays.asList(new File(modePath)).stream().flatMap(file -> Arrays.asList(file.listFiles()).stream()).map(File::getAbsolutePath).collect(Collectors.toList()));
+    public Service(ServiceConfig serviceConfig,DaoConfig daoConfig, String modePath) {
+        this(serviceConfig, daoConfig,Arrays.asList(new File(modePath)).stream().flatMap(file -> Arrays.asList(file.listFiles()).stream()).map(File::getAbsolutePath).collect(Collectors.toList()));
     }
 
-    public Service(ServiceConfig serviceConfig, List<String> models) {
+    public Service(ServiceConfig serviceConfig,DaoConfig daoConfig, List<String> models) {
         this.files = models.stream().map(File::new).filter(File::isFile).collect(Collectors.toList());
         this.serviceConfig = serviceConfig;
+        this.daoConfig = daoConfig;
         this.servicePath = mkdir(this.serviceConfig.getService());
         this.serviceImplPath = mkdir(this.serviceConfig.getServiceImpl());
     }
@@ -66,9 +69,9 @@ public class Service extends TemplateGenerator {
             File outFile = Paths.get(serviceImplPath.getAbsolutePath(), className + "ServiceImpl.java").toFile();
             List<String> imp = new ArrayList<>();
             imp.add("com.github.lihang941.common.service.BaseMapperService");
-            imp.add("com.github.lihang941.common.mapper.BaseMapper");
             imp.add("org.springframework.stereotype.Service");
             imp.add(this.serviceConfig.getService().getPackageName() + "." + className + "Service");
+            imp.add(this.daoConfig.getJavaClient().getPackageName() + "." + className + "Mapper");
             imp.add(packageName + "." + className);
             createTemp(outFile, new JSONObject()
                             .fluentPut("author", AUTHOR)
