@@ -9,7 +9,7 @@ import java.util.List;
 public class DaoConfig {
 
     public static final String MYSQL_DELIMITER = "`";
-    public static final String POSTGRESQL_DELIMITER = "\"";
+    public static final String POSTGRESQL_DELIMITER = "\\\"";
 
     private String beginningDelimiter;
     private String endingDelimiter;
