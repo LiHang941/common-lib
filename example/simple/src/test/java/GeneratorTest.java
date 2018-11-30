@@ -42,7 +42,8 @@ public class GeneratorTest {
                         .setPassword("test"),
                 Arrays.asList(
                         new Table("user_id", "user"),
-                        new Table(true, "id", "test")
+                        new Table(true, "id", "test"),
+                        new Table(true, "id", "test_2")
                 )
         ).setDelimiter(DaoConfig.POSTGRESQL_DELIMITER);
 

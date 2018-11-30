@@ -1,4 +1,4 @@
-package com.github.lihang941.generator.config.dao;
+package com.github.lihang941.generator.config;
 
 /**
  * @author : lihang1329@gmail.com

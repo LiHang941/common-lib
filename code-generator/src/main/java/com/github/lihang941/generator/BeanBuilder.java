@@ -1,7 +1,7 @@
 package com.github.lihang941.generator;
 
 import com.github.lihang941.TemplateGenerator;
-import com.github.lihang941.WhiteGenerator;
+import com.github.lihang941.BlackListGenerator;
 import com.github.lihang941.generator.tool.FileTool;
 import org.apache.commons.io.IOUtils;
 
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * @author : lihang1329@gmail.com
  * @since : 2018/11/28
  */
-public class BeanBuilder extends WhiteGenerator {
+public class BeanBuilder extends BlackListGenerator {
 
     private List<File> fileList;
 
@@ -36,7 +36,7 @@ public class BeanBuilder extends WhiteGenerator {
 
     @Override
     public void generator() {
-        fileList.stream().filter(file -> !this.isWhite(file.getName())).forEach(file -> {
+        fileList.stream().filter(file -> !this.isBlackList(file.getName())).forEach(file -> {
             String content = TemplateGenerator.toContent(file);
             String className = FileTool.getClassName(content);
             if (className == null) {

@@ -3,7 +3,7 @@ package com.github.lihang941.generator;
 import com.alibaba.fastjson.JSONObject;
 import com.github.lihang941.TemplateGenerator;
 import com.github.lihang941.generator.config.ServiceConfig;
-import com.github.lihang941.generator.config.dao.DaoConfig;
+import com.github.lihang941.generator.config.DaoConfig;
 import com.github.lihang941.generator.tool.FileTool;
 
 import java.io.File;
@@ -41,7 +41,7 @@ public class Service extends TemplateGenerator {
 
     @Override
     public void generator() {
-        this.files.stream().filter(file -> !this.isWhite(file.getName())).forEach(this::generator);
+        this.files.stream().filter(file -> !this.isBlackList(file.getName())).forEach(this::generator);
     }
 
 

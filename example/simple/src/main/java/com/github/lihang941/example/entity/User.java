@@ -3,6 +3,7 @@ package com.github.lihang941.example.entity;
 import java.util.Date;
 import javax.persistence.*;
 
+@Table(name = "\"user\"")
 public class User {
     @Id
     @Column(name = "user_id")

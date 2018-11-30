@@ -16,7 +16,7 @@ import java.util.Map;
  * @author : lihang1329@gmail.com
  * @since : 2018/11/28
  */
-public abstract class TemplateGenerator extends WhiteGenerator {
+public abstract class TemplateGenerator extends BlackListGenerator {
 
     public static Configuration cfg;
 

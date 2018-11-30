@@ -2,14 +2,10 @@ package com.github.lihang941.generator;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.lihang941.TemplateGenerator;
-import com.github.lihang941.generator.config.PathPackage;
 import com.github.lihang941.generator.config.DtoConfig;
 import com.github.lihang941.generator.tool.FileTool;
-import org.apache.commons.io.IOUtils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -41,7 +37,7 @@ public class DtoAndConvert extends TemplateGenerator {
 
     @Override
     public void generator() {
-        files.stream().filter(file -> !this.isWhite(file.getName())).forEach(this::generator);
+        files.stream().filter(file -> !this.isBlackList(file.getName())).forEach(this::generator);
     }
 
 

@@ -1,8 +1,5 @@
-package com.github.lihang941.generator.config.dao;
+package com.github.lihang941.generator.config;
 
-import com.github.lihang941.generator.config.PathPackage;
-
-import java.util.Arrays;
 import java.util.List;
 
 /**

@@ -8,7 +8,6 @@ import com.github.lihang941.generator.config.ServiceConfig;
 import com.github.lihang941.generator.tool.FileTool;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +41,7 @@ public class VertxResource extends TemplateGenerator {
 
     @Override
     public void generator() {
-        this.files.stream().filter(file -> !this.isWhite(file.getName())).forEach(this::generator);
+        this.files.stream().filter(file -> !this.isBlackList(file.getName())).forEach(this::generator);
     }
 
 

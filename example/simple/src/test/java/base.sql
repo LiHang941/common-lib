@@ -19,3 +19,11 @@ create table "test"
   id     bigserial primary key,
   test_name   varchar(40)                         not null
 );
+
+
+drop table if exists "test_2";
+create table "test_2"
+(
+  id     bigserial primary key,
+  test_name   varchar(40)                         not null
+);
