@@ -1,7 +1,7 @@
 
 buildscript {
     ext{
-        commonLibVersion="-SNAPSHOT"
+        commonLibVersion="master-SNAPSHOT"
         
     }
     
