@@ -1,20 +1,13 @@
 import com.github.lihang941.Context;
 import com.github.lihang941.TemplateGenerator;
 import com.github.lihang941.generator.*;
-import com.github.lihang941.generator.config.DtoConfig;
-import com.github.lihang941.generator.config.PathPackage;
-import com.github.lihang941.generator.config.ResourceConfig;
-import com.github.lihang941.generator.config.ServiceConfig;
-import com.github.lihang941.generator.config.dao.DaoConfig;
-import com.github.lihang941.generator.config.dao.Table;
-import com.github.lihang941.generator.config.dao.JdbcConfig;
+import com.github.lihang941.generator.config.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author : lihang941
@@ -41,9 +34,9 @@ public class GeneratorTest {
                         .setUserId("test")
                         .setPassword("test"),
                 Arrays.asList(
-                        new Table("user_id", "user"),
-                        new Table(true, "id", "test"),
-                        new Table(true, "id", "test_2")
+                        new Table("user").setColumn("user_id"),
+                        new Table("test").setColumn("id"),
+                        new Table("test_2").setColumn("id")
                 )
         ).setDelimiter(DaoConfig.POSTGRESQL_DELIMITER);
 
@@ -53,11 +46,14 @@ public class GeneratorTest {
                 new PathPackage(basePath, basePackage + ".dto"),
                 new PathPackage(basePath, basePackage + ".convert"));
 
+        String modePath = TemplateGenerator.mkdir(daoConfig.getJavaModel()).getAbsolutePath();
+
+
         context.getGeneratorList().add(new DtoAndConvert(dtoConfig,
-                TemplateGenerator.mkdir(daoConfig.getJavaModel()).getAbsolutePath()
+                modePath
         ));
         context.getGeneratorList().add(new BeanBuilder(
-                TemplateGenerator.mkdir(daoConfig.getJavaModel()).getAbsolutePath()
+                modePath
         ));
 
         ServiceConfig serviceConfig = new ServiceConfig(
@@ -67,7 +63,8 @@ public class GeneratorTest {
 
         context.getGeneratorList().add(new Service(
                 serviceConfig,
-                TemplateGenerator.mkdir(daoConfig.getJavaModel()).getAbsolutePath()
+                daoConfig,
+                modePath
         ));
 
         context.getGeneratorList().add(new VertxResource(
@@ -76,7 +73,7 @@ public class GeneratorTest {
                 ),
                 dtoConfig,
                 serviceConfig,
-                TemplateGenerator.mkdir(daoConfig.getJavaModel()).getAbsolutePath()
+                modePath
         ));
     }
 

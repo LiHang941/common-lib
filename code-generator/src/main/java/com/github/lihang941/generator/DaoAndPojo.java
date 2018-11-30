@@ -55,11 +55,16 @@ public class DaoAndPojo implements Generator {
             public void done() {
                 countDownLatch.countDown();
             }
+
+            @Override
+            public void startTask(String taskName) {
+                LOGGER.info(taskName);
+            }
         });
+        countDownLatch.await();
         for (String warning : warnings) {
             LOGGER.warning(warning);
         }
-        countDownLatch.await();
     }
 
 
