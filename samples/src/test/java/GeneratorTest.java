@@ -2,7 +2,6 @@ import com.github.lihang941.Context;
 import com.github.lihang941.TemplateGenerator;
 import com.github.lihang941.generator.*;
 import com.github.lihang941.generator.config.*;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -16,11 +15,10 @@ import java.util.Arrays;
 public class GeneratorTest {
 
 
-    private Context context = new Context();
+    private static Context context = new Context();
 
 
-    @Before
-    public void before() {
+    static {
         String basePath = Paths.get("src/main/java/").toFile().getAbsolutePath();
         String basePackage = "com.github.lihang941.example";
 
@@ -34,9 +32,9 @@ public class GeneratorTest {
                         .setUserId("test")
                         .setPassword("test"),
                 Arrays.asList(
-                        new Table("user").setColumn("user_id"),
-                        new Table("test").setColumn("id"),
-                        new Table("test_2").setColumn("id")
+                        new Table("user", "user_id"),
+                        new Table("test", "id"),
+                        new Table("test_2", "id")
                 )
         ).setDelimiter(DaoConfig.POSTGRESQL_DELIMITER);
 
@@ -87,6 +85,7 @@ public class GeneratorTest {
     @Test
     public void dto() throws Exception {
         DtoAndConvert generator = context.generator(DtoAndConvert.class);
+        generator.setRewrite(true);
         generator.generator();
     }
 

@@ -13,9 +13,13 @@ public class Table {
     private boolean identity = true;
     private String type;
 
-    public Table(String column, String tableName) {
+    public Table(String tableName, String column) {
         this.tableName = tableName;
         this.column = column;
+    }
+
+    public Table(String tableName) {
+        this.tableName = tableName;
     }
 
     public Table(boolean generatedKey, String column, String tableName) {

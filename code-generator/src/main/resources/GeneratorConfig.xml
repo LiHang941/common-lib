@@ -7,11 +7,13 @@
 
     <context id="MysqlTables" defaultModelType="flat" targetRuntime="MyBatis3Simple">
         <property name="autoDelimitKeywords" value="true"/>
+
         <property name="beginningDelimiter" value=''/>
         <property name="endingDelimiter" value=''/>
         <property name="javaFileEncoding" value="UTF-8"/>
 
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="useMapperCommentGenerator" value="false"/>
             <property name="mappers" value="com.github.lihang941.common.mapper.BaseMapper"/>
             <property name="caseSensitive" value="true"/>
             <property name="generateColumnConsts" value="true"/>

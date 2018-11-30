@@ -48,14 +48,13 @@ public class DtoAndConvert extends TemplateGenerator {
             LOGGER.warning(file.getAbsolutePath() + "未找到class name");
             return;
         }
-        Matcher contentMatcher = Pattern.compile("\\{[^\\\\]+\\}").matcher(content);
+        Matcher contentMatcher = Pattern.compile("class\\s+.+(\\{[^$]+\\})").matcher(content);
         List<String> importList = FileTool.parseFileToImportList(content);
         importList.remove("javax.persistence.*");
         if (contentMatcher.find()) {
-            Matcher matcher = Pattern.compile("^[^\\*\\n]+@\\w+(\\(.+\\))?$", Pattern.MULTILINE).matcher(contentMatcher.group());
-            String newContent = matcher.replaceAll("");
-
-
+            String newContent = Pattern.compile("^[^\\*\\n]+?@\\w+(\\(.+\\))?$", Pattern.MULTILINE).matcher(contentMatcher.group(1)).replaceAll("");
+            newContent = Pattern.compile("^.+public\\sstatic\\sfinal\\s.+\\s[\\w_]+\\s=\\s[\\w\\\";]+$", Pattern.MULTILINE).matcher(newContent)
+                    .replaceAll("").replaceAll("(\r\n)+", "\r\n");
             createTemp(Paths.get(dtoPath.getAbsolutePath(), className + "Dto.java").toFile(), new JSONObject()
                             .fluentPut("importList", importList)
                             .fluentPut("entityName", className)

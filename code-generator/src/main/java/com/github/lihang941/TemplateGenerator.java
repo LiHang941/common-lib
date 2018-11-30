@@ -56,6 +56,12 @@ public abstract class TemplateGenerator extends BlackListGenerator {
         return FileTool.mkdirs(pathPackage.getPath(), pathPackage.getPackageName());
     }
 
+    public TemplateGenerator setRewrite(boolean rewrite) {
+        this.rewrite = rewrite;
+        return this;
+    }
+
+
 
     public static String toContent(File file) {
         try (FileInputStream fileInputStream = new FileInputStream(file);) {

@@ -6,11 +6,9 @@ import com.github.lihang941.generator.config.DaoConfig;
 import com.github.lihang941.generator.config.PathPackage;
 import com.github.lihang941.generator.config.Table;
 import org.mybatis.generator.api.MyBatisGenerator;
-import org.mybatis.generator.api.ProgressCallback;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
-import org.mybatis.generator.internal.NullProgressCallback;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
@@ -21,7 +19,6 @@ import javax.xml.transform.OutputKeys;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.*;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * @author : lihang1329@gmail.com
@@ -45,23 +42,8 @@ public class DaoAndPojo implements Generator {
 
     public void generator(InputStream inputStream) throws Exception {
         List<String> warnings = new ArrayList<>();
-        ConfigurationParser cp = new ConfigurationParser(warnings);
-        Configuration config = cp.parseConfiguration(inputStream);
-        DefaultShellCallback callback = new DefaultShellCallback(true);
-        MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, null);
-        CountDownLatch countDownLatch = new CountDownLatch(1);
-        myBatisGenerator.generate(new NullProgressCallback() {
-            @Override
-            public void done() {
-                countDownLatch.countDown();
-            }
-
-            @Override
-            public void startTask(String taskName) {
-                LOGGER.info(taskName);
-            }
-        });
-        countDownLatch.await();
+        Configuration config = new ConfigurationParser(warnings).parseConfiguration(inputStream);
+        new MyBatisGenerator(config, new DefaultShellCallback(true), warnings).generate(null);
         for (String warning : warnings) {
             LOGGER.warning(warning);
         }
