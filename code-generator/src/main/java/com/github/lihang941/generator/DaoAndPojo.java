@@ -80,12 +80,14 @@ public class DaoAndPojo implements Generator {
             Element plugin = (Element) documentElement.getElementsByTagName("plugin").item(0);
             {
                 Element property = document.createElement("property");
-                property.setAttribute("beginningDelimiter", daoConfig.getBeginningDelimiter());
+                property.setAttribute("value", daoConfig.getBeginningDelimiter());
+                property.setAttribute("name", "beginningDelimiter");
                 plugin.appendChild(property);
             }
             {
                 Element property = document.createElement("property");
-                property.setAttribute("endingDelimiter", daoConfig.getEndingDelimiter());
+                property.setAttribute("name", "endingDelimiter");
+                property.setAttribute("value", daoConfig.getEndingDelimiter());
                 plugin.appendChild(property);
             }
         }
