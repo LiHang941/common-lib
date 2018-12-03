@@ -17,16 +17,16 @@ public class ${entityName}Resource {
 
     @URL(":id")
     @POST
-    public void update(@Path("id") ${idType} ${idName},@Body ${entityName}Dto ${entityName?uncap_first}Dto) {
+    public int update(@Path("id") ${idType} ${idName},@Body ${entityName}Dto ${entityName?uncap_first}Dto) {
         ${entityName} ${entityName?uncap_first}= ${entityName}Convert.to${entityName}().apply(${entityName?uncap_first}Dto);
         ${entityName?uncap_first}.set${idName?cap_first}(${idName});
-        ${entityName?uncap_first}Service.updateByPrimaryKeySelective(${entityName?uncap_first});
+        return ${entityName?uncap_first}Service.updateByPrimaryKeySelective(${entityName?uncap_first});
     }
 
     @URL(":id")
     @DELETE
-    public void delete(@Path("id") ${idType} ${idName}) {
-        ${entityName?uncap_first}Service.deleteByPrimaryKey(${idName});
+    public int delete(@Path("id") ${idType} ${idName}) {
+        return ${entityName?uncap_first}Service.deleteByPrimaryKey(${idName});
     }
 
     @GET
