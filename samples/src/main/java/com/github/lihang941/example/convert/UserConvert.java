@@ -7,7 +7,7 @@ import com.github.lihang941.example.entity.User;
 
 /**
  * @author : lihang1329@gmail.com
- * @since : 2018-11-30 18:02
+ * @since : 2018-12-03 10:28
  */
 
 public class UserConvert extends BeanConvert {

@@ -6,17 +6,17 @@ import javax.persistence.*;
 @Table(name = "\"user\"")
 public class User {
     @Id
-    @Column(name = "user_id")
+    @Column(name = "\"user_id\"")
     @GeneratedValue(generator = "JDBC")
     private String userId;
 
-    @Column(name = "user_name")
+    @Column(name = "\"user_name\"")
     private String userName;
 
-    @Column(name = "create_time")
+    @Column(name = "\"create_time\"")
     private Date createTime;
 
-    @Column(name = "user_status")
+    @Column(name = "\"user_status\"")
     private Integer userStatus;
 
     public static final String USER_ID = "userId";
@@ -37,10 +37,9 @@ public class User {
     /**
      * @param userId
      */
-    public User setUserId(String userId){		
+    public void setUserId(String userId) {
         this.userId = userId;
-		return this;
-	}
+    }
 
     /**
      * @return user_name
@@ -52,10 +51,9 @@ public class User {
     /**
      * @param userName
      */
-    public User setUserName(String userName){		
+    public void setUserName(String userName) {
         this.userName = userName;
-		return this;
-	}
+    }
 
     /**
      * @return create_time
@@ -67,10 +65,9 @@ public class User {
     /**
      * @param createTime
      */
-    public User setCreateTime(Date createTime){		
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-		return this;
-	}
+    }
 
     /**
      * @return user_status
@@ -82,8 +79,7 @@ public class User {
     /**
      * @param userStatus
      */
-    public User setUserStatus(Integer userStatus){		
+    public void setUserStatus(Integer userStatus) {
         this.userStatus = userStatus;
-		return this;
-	}
+    }
 }

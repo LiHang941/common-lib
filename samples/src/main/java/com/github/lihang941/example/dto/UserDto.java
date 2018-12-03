@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * @author : lihang1329@gmail.com
- * @since : 2018-11-30 18:02
+ * @since : 2018-12-03 10:28
  */
 public class UserDto {
     private String userId;
