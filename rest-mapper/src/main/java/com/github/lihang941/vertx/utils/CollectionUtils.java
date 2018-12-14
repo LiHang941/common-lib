@@ -35,31 +35,6 @@ public class CollectionUtils {
         return array;
     }
 
-    public static boolean isEmptyStringArray(String[] array) {
-        boolean empty = true;
-        if (array != null) {
-            for (String s : array) {
-                if (!StringUtils.isNullOrBlank(s)) {
-                    empty = false;
-                    break;
-                }
-            }
-        }
-        return empty;
-    }
-
-    public static boolean isEmptyStringCollection(Collection<String> collection) {
-        boolean empty = true;
-        if (collection != null) {
-            for (String s : collection) {
-                if (!StringUtils.isNullOrBlank(s)) {
-                    empty = false;
-                    break;
-                }
-            }
-        }
-        return empty;
-    }
 
     public static <E, T extends E> T firstElement(E[] array, Class<T> elementClass) {
         for (E e : array) {

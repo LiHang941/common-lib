@@ -27,7 +27,7 @@ public abstract class XMLUtils {
      */
     public static String doc2String(Document doc, Map<String, String> map) {
         try {
-            Source source = new DOMSource(doc);
+            DOMSource source = new DOMSource(doc);
             StringWriter stringWriter = new StringWriter();
             Result result = new StreamResult(stringWriter);
             TransformerFactory factory = TransformerFactory.newInstance();

@@ -1,5 +1,7 @@
 package com.github.lihang941.generator.config;
 
+import com.github.lihang941.TemplateGenerator;
+
 /**
  * @author : lihang941
  * @since : 2018/11/28
@@ -30,5 +32,9 @@ public class PathPackage {
     public PathPackage setPackageName(String packageName) {
         this.packageName = packageName;
         return this;
+    }
+
+    public String toFilePath() {
+        return TemplateGenerator.mkdir(this).getAbsolutePath();
     }
 }

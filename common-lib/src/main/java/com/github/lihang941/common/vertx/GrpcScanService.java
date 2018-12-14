@@ -31,7 +31,7 @@ public class GrpcScanService {
     private Vertx vertx;
     private String host;
 
-    public GrpcScanService(String host,int port, Vertx vertx) {
+    public GrpcScanService(String host, int port, Vertx vertx) {
         this.port = port;
         this.vertx = vertx;
         this.host = host;
@@ -54,7 +54,7 @@ public class GrpcScanService {
                                 // 拦截器
                                 ServerInterceptor[] serverInterceptors = new ServerInterceptor[interceptor.length];
                                 for (int i = 0; i < interceptor.length; i++) {
-                                    serverInterceptors[i] = BlockingServerInterceptor.wrap(vertx, applicationContext.getBean(interceptor[i]));
+                                    serverInterceptors[i] = applicationContext.getBean(interceptor[i]);
                                 }
                                 vertxServerBuilder.addService(ServerInterceptors.intercept(service, serverInterceptors));
                             }

@@ -1,14 +1,3 @@
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = 'com.github.lihang941'
-            artifactId = 'rest-mapper'
-            version = '0.0.1'
-            from components.java
-        }
-    }
-}
-
-dependencies {   
+dependencies {
     compile "io.vertx:vertx-web:$vertxVersion"
 }
