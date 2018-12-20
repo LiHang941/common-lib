@@ -36,7 +36,7 @@ public class GeneratorTest {
                         new Table("test", "id"),
                         new Table("test_2", "id")
                 )
-        ).setDelimiter(DaoConfig.POSTGRESQL_DELIMITER);
+        ).setDelimiter(DaoConfig.POSTGRESQL_DELIMITER).setLombok(true);
 
         context.getGeneratorList().add(new DaoAndPojo(daoConfig));
 

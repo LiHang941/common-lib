@@ -2,6 +2,5 @@ include 'code-generator'
 include 'common-lib'
 include 'rest-mapper'
 include 'rest-samples'
-include 'generator-samples'
 include 'tuples'
 

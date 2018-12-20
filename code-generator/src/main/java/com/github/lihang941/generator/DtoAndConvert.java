@@ -57,6 +57,7 @@ public class DtoAndConvert extends TemplateGenerator {
                     .replaceAll("").replaceAll("(\r\n)+", "\r\n");
             createTemp(Paths.get(dtoPath.getAbsolutePath(), className + "Dto.java").toFile(), new JSONObject()
                             .fluentPut("importList", importList)
+                            .fluentPut("lombok", dtoConfig.isLombok())
                             .fluentPut("entityName", className)
                             .fluentPut("content", newContent)
                             .fluentPut("packageName", dtoConfig.getDto().getPackageName()),

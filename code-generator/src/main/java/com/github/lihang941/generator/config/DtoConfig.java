@@ -8,6 +8,7 @@ public class DtoConfig {
 
     private PathPackage dto;
     private PathPackage convert;
+    private boolean lombok;
 
     public DtoConfig() {
     }
@@ -32,6 +33,15 @@ public class DtoConfig {
 
     public DtoConfig setConvert(PathPackage convert) {
         this.convert = convert;
+        return this;
+    }
+
+    public boolean isLombok() {
+        return lombok;
+    }
+
+    public DtoConfig setLombok(boolean lombok) {
+        this.lombok = lombok;
         return this;
     }
 }

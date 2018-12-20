@@ -13,6 +13,7 @@ public class DaoConfig {
 
     private String beginningDelimiter;
     private String endingDelimiter;
+    private boolean lombok;
 
     private PathPackage javaModel;
     private PathPackage sqlMap;
@@ -36,6 +37,11 @@ public class DaoConfig {
     public DaoConfig setDelimiter(String delimiter) {
         this.beginningDelimiter = delimiter;
         this.endingDelimiter = delimiter;
+        return this;
+    }
+
+    public DaoConfig setLombok(boolean lombok) {
+        this.lombok = lombok;
         return this;
     }
 
@@ -100,5 +106,9 @@ public class DaoConfig {
     public DaoConfig setTables(List<Table> tables) {
         this.tables = tables;
         return this;
+    }
+
+    public boolean isLombok() {
+        return lombok;
     }
 }

@@ -1,7 +1,15 @@
 package com.github.lihang941.example.entity;
 
 import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
+@Getter
+@Setter
+@ToString
+@Accessors(chain = true)
 @Table(name = "\"test_2\"")
 public class Test2 {
     @Id
@@ -15,32 +23,4 @@ public class Test2 {
     public static final String ID = "id";
 
     public static final String TEST_NAME = "testName";
-
-    /**
-     * @return id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**
-     * @return test_name
-     */
-    public String getTestName() {
-        return testName;
-    }
-
-    /**
-     * @param testName
-     */
-    public void setTestName(String testName) {
-        this.testName = testName;
-    }
 }

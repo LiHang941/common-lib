@@ -6,8 +6,8 @@
 <generatorConfiguration>
 
     <context id="MysqlTables" defaultModelType="flat" targetRuntime="MyBatis3Simple">
-        <property name="autoDelimitKeywords" value="true"/>
 
+        <property name="autoDelimitKeywords" value="true"/>
         <property name="beginningDelimiter" value=''/>
         <property name="endingDelimiter" value=''/>
         <property name="javaFileEncoding" value="UTF-8"/>
@@ -18,7 +18,9 @@
             <property name="caseSensitive" value="true"/>
             <property name="generateColumnConsts" value="true"/>
         </plugin>
-
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
         <jdbcConnection
                 driverClass=""
                 connectionURL=""

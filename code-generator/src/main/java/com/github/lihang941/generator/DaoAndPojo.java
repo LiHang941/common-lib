@@ -77,6 +77,14 @@ public class DaoAndPojo implements Generator {
                 property.setAttribute("value", daoConfig.getEndingDelimiter());
                 plugin.appendChild(property);
             }
+            {
+                if (daoConfig.isLombok()){
+                    Element property = document.createElement("property");
+                    property.setAttribute("name", "lombok");
+                    property.setAttribute("value", "Getter,Setter,ToString,Accessors");
+                    plugin.appendChild(property);
+                }
+            }
         }
         {
             for (Map<String, PathPackage> map : Arrays.asList(
@@ -119,7 +127,7 @@ public class DaoAndPojo implements Generator {
 
         DocumentType doctype = document.getImplementation().createDocumentType("doctype",
                 "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN",
-                "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd");
+                "");
         HashMap<String, String> map = new HashMap<>();
         map.put(OutputKeys.DOCTYPE_PUBLIC, doctype.getPublicId());
         map.put(OutputKeys.DOCTYPE_SYSTEM, doctype.getSystemId());
