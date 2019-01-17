@@ -25,7 +25,7 @@ public class SimpleRestServer extends AbstractVerticle {
 
     protected static final Logger LOGGER = Logger.getLogger("simpleRestServer");
 
-    protected final RestMapper restRouteMapper = new RestMapper();
+    public final RestMapper restRouteMapper = new RestMapper();
     private String serverOptionConfigKey;
     private HttpServer httpServer;
     private Options serverOptions;
@@ -86,7 +86,7 @@ public class SimpleRestServer extends AbstractVerticle {
         Router router = Router.router(vertx);
         httpServer = onCreateServer(router);
         onInitServerRouter(httpServer, router);
-        httpServer.requestHandler(router::accept);
+        httpServer.requestHandler(router);
         httpServer.listen(event -> {
             if (event.succeeded()) {
                 onServerListening(event.result());
@@ -150,10 +150,11 @@ public class SimpleRestServer extends AbstractVerticle {
             response.setStatusMessage(message.replace('\r', ' ').replace('\n', ' '));
             content = buildErrorMessage(throwable, serializer);
         }
-        if (StringUtils.isNullOrBlank(content)) response.end(); else response.end(content);
+        if (StringUtils.isNullOrBlank(content)) response.end();
+        else response.end(content);
     }
 
-    protected String buildErrorMessage(Throwable e, Serializer serializer) {
+    public static String buildErrorMessage(Throwable e, Serializer serializer) {
         return serializer.serialize(Stream.of(e.getStackTrace()).map(element -> new StringBuilder()
                 .append(element.getLineNumber())
                 .append(':')
@@ -184,7 +185,54 @@ public class SimpleRestServer extends AbstractVerticle {
             mergeFormAttributes = jsonObject.getBoolean("mergeFormAttributes", mergeFormAttributes);
         }
 
+        public String getUploadPath() {
+            return uploadPath;
+        }
+
+        public Options setUploadPath(String uploadPath) {
+            this.uploadPath = uploadPath;
+            return this;
+        }
+
+        public String getRootPath() {
+            return rootPath;
+        }
+
+        public Options setRootPath(String rootPath) {
+            this.rootPath = rootPath;
+            return this;
+        }
+
+        public int getBodyLimit() {
+            return bodyLimit;
+        }
+
+        public Options setBodyLimit(int bodyLimit) {
+            this.bodyLimit = bodyLimit;
+            return this;
+        }
+
+        public boolean isDeleteUploadedFilesOnEnd() {
+            return deleteUploadedFilesOnEnd;
+        }
+
+        public Options setDeleteUploadedFilesOnEnd(boolean deleteUploadedFilesOnEnd) {
+            this.deleteUploadedFilesOnEnd = deleteUploadedFilesOnEnd;
+            return this;
+        }
+
+        public boolean isMergeFormAttributes() {
+            return mergeFormAttributes;
+        }
+
+        public Options setMergeFormAttributes(boolean mergeFormAttributes) {
+            this.mergeFormAttributes = mergeFormAttributes;
+            return this;
+        }
     }
 
+    public RestMapper getRestRouteMapper() {
+        return restRouteMapper;
+    }
 }
 

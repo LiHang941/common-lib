@@ -1,4 +1,4 @@
-package com.github.lihang941.common.rpc;
+package com.github.lihang941.grpc.autoconfigure.client;
 
 import java.lang.annotation.*;
 

@@ -12,6 +12,22 @@ spring:
       max-lifetime: 1800000
       connection-timeout: 30000
       connection-test-query: SELECT 1
+
+
 mybatis:
+  type-aliases-package:  com.github.lihang941.example.entity
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.github.lihang941.example.entity
+
+mapper:
+  mappers: com.github.lihang941.common.mapper.BaseMapper
+  enable-method-annotation: true
+
+pagehelper:
+  supportMethodsArguments: true
+  params: count=countSql
+
+vertx:
+  web:
+    webSocketEnable: true
+    port: 8080
+

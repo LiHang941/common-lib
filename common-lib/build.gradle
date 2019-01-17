@@ -4,13 +4,16 @@ dependencies {
     compile "commons-codec:commons-codec:$commonsCodecVersion"
     compile "com.alibaba:fastjson:$fastjsonVersion"
 
-    compileOnly "tk.mybatis:mapper:$tkMybatisVersion"
+    compileOnly project(":rest-mapper")
+
     compileOnly "org.springframework.boot:spring-boot-starter-data-redis:$springBootVersion"
-    compileOnly "com.github.pagehelper:pagehelper:$pagehelperVersion"
-    compileOnly "org.mybatis:mybatis:$mybatisVersion"
+
+    compileOnly "com.github.pagehelper:pagehelper-spring-boot-starter:$pageHelperSpringVersion"
+    compileOnly "tk.mybatis:mapper-spring-boot-starter:$tkMapperSpringVersion"
+
     compileOnly "io.vertx:vertx-grpc:$vertxVersion"
     compileOnly "com.squareup.okhttp3:okhttp:$OkHttpVersion"
-    compileOnly project(":rest-mapper")
+
     testCompile "org.springframework:spring-context:$springVersion"
     testCompile "ch.qos.logback:logback-classic:1.2.3"
     testCompile project(":rest-mapper")

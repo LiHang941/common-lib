@@ -1,0 +1,6 @@
+compileJava.dependsOn(processResources)
+dependencies {
+    compile project (":rest-mapper")
+    compile "org.springframework.boot:spring-boot-autoconfigure:$springBootVersion"
+    annotationProcessor  "org.springframework.boot:spring-boot-configuration-processor:$springBootVersion"
+}

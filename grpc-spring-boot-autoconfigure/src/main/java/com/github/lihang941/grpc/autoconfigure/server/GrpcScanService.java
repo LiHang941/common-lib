@@ -1,21 +1,21 @@
-package com.github.lihang941.common.vertx;
+package com.github.lihang941.grpc.autoconfigure.server;
 
 import io.grpc.BindableService;
 import io.grpc.ServerInterceptor;
 import io.grpc.ServerInterceptors;
 import io.vertx.core.Vertx;
-import io.vertx.grpc.BlockingServerInterceptor;
 import io.vertx.grpc.VertxServer;
 import io.vertx.grpc.VertxServerBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 /**
  * 扫描GrpcService 注解 并交给Vert.x 管理
@@ -25,23 +25,23 @@ import java.util.concurrent.TimeUnit;
  */
 public class GrpcScanService {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-    private int port;
+    private static final Logger logger = Logger.getLogger(GrpcScanService.class.getName());
     private VertxServer vertxServer;
-    private Vertx vertx;
+    private VertxServerBuilder vertxServerBuilder;
     private String host;
+    private int port;
 
     public GrpcScanService(String host, int port, Vertx vertx) {
-        this.port = port;
-        this.vertx = vertx;
         this.host = host;
+        this.port = port;
+        this.vertxServerBuilder = VertxServerBuilder.forAddress(vertx, host, port);
     }
 
     @EventListener
     public void onApplicationEvent(ContextRefreshedEvent event) {
         ApplicationContext applicationContext = event.getApplicationContext();
-        VertxServerBuilder vertxServerBuilder = VertxServerBuilder.forAddress(vertx, host, port);
-        event.getApplicationContext().getBeansWithAnnotation(GrpcService.class).values()
+        event.getApplicationContext().getBeansWithAnnotation(GrpcService.class)
+                .values()
                 .stream()
                 .filter(obj -> obj != null && obj instanceof BindableService)
                 .forEach(obj -> {
@@ -60,14 +60,19 @@ public class GrpcScanService {
                             }
                         }
                 );
+    }
+
+    @PostConstruct
+    public void onCreate() {
         try {
             vertxServer = vertxServerBuilder.build().start();
-            logger.info("Vertx Grpc Server start success port : {}", port);
+            logger.info(MessageFormat.format("Vertx Grpc Server Start Success Listening {0}:{1}", host, port));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
+
 
     @PreDestroy
     private void onStop() throws InterruptedException {

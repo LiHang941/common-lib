@@ -12,6 +12,9 @@ buildscript {
         pagehelperVersion = '5.1.8'
         fastjsonVersion = '1.2.54'
         tkMybatisVersion = '4.1.2'
+
+        pageHelperSpringVersion = '1.2.10'
+        tkMapperSpringVersion = "2.1.0"
     }
 }
 

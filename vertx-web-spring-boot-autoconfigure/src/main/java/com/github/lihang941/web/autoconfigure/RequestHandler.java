@@ -1,23 +1,23 @@
-package com.github.lihang941.common.vertx;
+package com.github.lihang941.web.autoconfigure;
 
-import io.grpc.ServerInterceptor;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;
 
 import java.lang.annotation.*;
 
 /**
- * @author : lihang1329@gmail.com
- * @since : 2018/7/9
+ * @author : lihang941
+ * @since : 2019/1/15
  */
-@Target(ElementType.TYPE)
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Inherited
+@Target(ElementType.TYPE)
 @Component
-public @interface GrpcService {
+public @interface RequestHandler {
 
     @AliasFor(annotation = Component.class)
     String value() default "";
 
-    Class<? extends ServerInterceptor>[] interceptor() default {};
+    String path() default "";
+
 }

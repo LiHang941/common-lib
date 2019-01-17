@@ -1,19 +1,20 @@
 package com.github.lihang941.example.resource;
 
-import com.github.lihang941.common.vertx.Controller;
-import com.github.lihang941.example.service.TestService;
+import com.github.lihang941.common.bean.IdDto;
+import com.github.lihang941.common.page.OffsetBean;
+import com.github.lihang941.common.vertx.RequestTool;
 import com.github.lihang941.example.convert.TestConvert;
 import com.github.lihang941.example.dto.TestDto;
 import com.github.lihang941.example.entity.Test;
+import com.github.lihang941.example.service.TestService;
 import com.github.lihang941.vertx.rest.*;
-import com.github.lihang941.common.page.OffsetBean;
-import com.github.lihang941.common.vertx.RequestTool;
-import com.github.lihang941.common.bean.IdDto;
+import com.github.lihang941.web.autoconfigure.Controller;
 import com.github.pagehelper.Page;
 import io.vertx.core.http.HttpServerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -28,8 +29,6 @@ public class TestResource {
 
     @Autowired
     private TestService testService;
-
-    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @POST
     public IdDto add(@Body TestDto testDto) {

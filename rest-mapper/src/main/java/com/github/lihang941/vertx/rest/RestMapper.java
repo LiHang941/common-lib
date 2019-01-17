@@ -33,7 +33,7 @@ public class RestMapper implements ContextProvider {
         ANNOTATION_MAP.put(OPTIONS.class, HttpMethod.OPTIONS);
     }
 
-    private static final Serializer DEFAULT_SERIALIZER = new Serializer() {
+    public static final Serializer DEFAULT_SERIALIZER = new Serializer() {
         @Override
         public String mediaEncode() {
             return "utf-8";

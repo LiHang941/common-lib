@@ -1,6 +1,7 @@
 package com.github.lihang941.example.entity;
 
 import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,7 +14,7 @@ import lombok.experimental.Accessors;
 @Table(name = "\"test_2\"")
 public class Test2 {
     @Id
-    @Column(name = "\"id\"")
+    @Column(name = "id", insertable = false)
     @GeneratedValue(generator = "JDBC")
     private Long id;
 

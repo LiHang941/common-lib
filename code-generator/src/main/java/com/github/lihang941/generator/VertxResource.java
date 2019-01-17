@@ -53,7 +53,7 @@ public class VertxResource extends TemplateGenerator {
 
 
         List<String> imp = new ArrayList<>();
-        imp.add("com.github.lihang941.common.vertx.Controller");
+        imp.add("com.github.lihang941.web.autoconfigure.Controller");
         imp.add(serviceConfig.getService().getPackageName() + "." + className + "Service");
         imp.add(dtoConfig.getConvert().getPackageName() + "." + className + "Convert");
         imp.add(dtoConfig.getDto().getPackageName() + "." + className + "Dto");
