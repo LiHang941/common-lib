@@ -10,6 +10,7 @@ import com.github.lihang941.example.service.Test2Service;
 import com.github.lihang941.vertx.rest.*;
 import com.github.lihang941.web.autoconfigure.Controller;
 import com.github.pagehelper.Page;
+import io.vertx.core.MultiMap;
 import io.vertx.core.http.HttpServerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -64,7 +65,7 @@ public class Test2Resource {
 
     @URL("list")
     @GET
-    public void get(@HeaderMap Map<String, String> headers, @Context Serializer serializer, @Context HttpServerResponse response) {
+    public void get(@HeaderMap MultiMap headers, @Context Serializer serializer, @Context HttpServerResponse response) {
         OffsetBean offsetBean = RequestTool.toOffsetBean(headers);
         Page<Test2> pageList = test2Service.offsetList(offsetBean);
         RequestTool.pageEnd(pageList.getTotal(),
