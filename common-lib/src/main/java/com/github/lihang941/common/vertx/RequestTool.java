@@ -3,6 +3,7 @@ package com.github.lihang941.common.vertx;
 import com.github.lihang941.common.page.PageNumBean;
 import com.github.lihang941.vertx.rest.Serializer;
 import com.github.pagehelper.Page;
+import io.vertx.core.MultiMap;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -61,12 +62,14 @@ public abstract class RequestTool {
     }
 
 
-    public static OffsetBean toOffsetBean(Map<String, String> map) {
+    public static OffsetBean toOffsetBean(MultiMap map) {
         int offset;
         int size;
         try {
-            offset = Integer.parseInt(map.getOrDefault("Offset", "0"));
-            size = Integer.parseInt(map.getOrDefault("Size", "0"));
+            String tempOffset = map.get("Offset");
+            String tempSize = map.get("Size");
+            offset = tempOffset == null ? 0 : Integer.parseInt(tempOffset);
+            size = tempSize == null ? 0 : Integer.parseInt(tempSize);
         } catch (NumberFormatException e) {
             offset = 0;
             size = PAGE_SIZE;
@@ -80,12 +83,14 @@ public abstract class RequestTool {
     }
 
 
-    public static PageNumBean toPageNumBean(Map<String, String> map) {
+    public static PageNumBean toPageNumBean(MultiMap map) {
         int pageNum;
         int size;
         try {
-            pageNum = Integer.parseInt(map.getOrDefault("Page", "0"));
-            size = Integer.parseInt(map.getOrDefault("Size", "0"));
+            String tempPage = map.get("Page");
+            String tempSize = map.get("Size");
+            pageNum = tempPage == null ? 0 : Integer.parseInt(tempPage);
+            size = tempSize == null ? 0 : Integer.parseInt(tempSize);
         } catch (NumberFormatException e) {
             pageNum = PAGE_NUM;
             size = PAGE_SIZE;
@@ -100,7 +105,8 @@ public abstract class RequestTool {
 
 
     public static HttpServerResponse pageEnd(Page page, HttpServerResponse httpServerResponse, Serializer serializer) {
-        httpServerResponse.putHeader("TotalCount", Long.toString(page.getTotal())).end(serializer.serialize(page.getResult()));
+        httpServerResponse.putHeader("TotalCount", Long.toString(page.getTotal()))
+                .end(serializer.serialize(page.getResult()));
         return httpServerResponse;
     }
 
