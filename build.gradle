@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        vertxVersion = '3.6.2'
+        vertxVersion = '3.6.0'
         OkHttpVersion = '3.12.1'
         commonLang3Version = '3.7'
         commonIOVersion = '1.3.2'
