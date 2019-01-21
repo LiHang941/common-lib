@@ -69,7 +69,7 @@ public class DefaultServiceVerticle extends SimpleRestServer {
 
     @Override
     protected void onInitServerRouter(HttpServer server, Router router) {
-        super.onInitServerRouter(server, router);
+
         applicationContext.getBeansWithAnnotation(RequestHandler.class).
                 values().forEach(v -> {
                     RequestHandler annotation = v.getClass().getAnnotation(RequestHandler.class);
@@ -101,6 +101,8 @@ public class DefaultServiceVerticle extends SimpleRestServer {
         if (vertxWebProperties.isWebSocketEnable()) {
             initWebSocket(server);
         }
+
+        super.onInitServerRouter(server, router);
     }
 
 
