@@ -1,16 +1,15 @@
 package com.github.lihang941.common.vertx;
 
+import com.github.lihang941.common.page.OffsetBean;
 import com.github.lihang941.common.page.PageNumBean;
 import com.github.lihang941.vertx.rest.Serializer;
 import com.github.pagehelper.Page;
-import io.vertx.core.MultiMap;
+import io.vertx.core.http.CaseInsensitiveHeaders;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 import org.apache.commons.lang3.StringUtils;
-import com.github.lihang941.common.page.OffsetBean;
 
 import java.util.List;
-import java.util.Map;
 
 import static com.github.lihang941.common.page.PageConstants.PAGE_NUM;
 import static com.github.lihang941.common.page.PageConstants.PAGE_SIZE;
@@ -62,7 +61,7 @@ public abstract class RequestTool {
     }
 
 
-    public static OffsetBean toOffsetBean(MultiMap map) {
+    public static OffsetBean toOffsetBean(CaseInsensitiveHeaders map) {
         int offset;
         int size;
         try {
@@ -83,7 +82,7 @@ public abstract class RequestTool {
     }
 
 
-    public static PageNumBean toPageNumBean(MultiMap map) {
+    public static PageNumBean toPageNumBean(CaseInsensitiveHeaders map) {
         int pageNum;
         int size;
         try {

@@ -2,6 +2,7 @@ package com.github.lihang941.vertx.rest;
 
 import io.vertx.core.MultiMap;
 import io.vertx.core.buffer.Buffer;
+import io.vertx.core.http.CaseInsensitiveHeaders;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -46,11 +47,11 @@ public class MethodCache {
         boolean isBlocking = false, isOrderBlocking = false, isHandleEnd = false;
         for (Annotation a : annotations) {
             if (a instanceof Blocking) {
-                Blocking blocking = (Blocking)a;
+                Blocking blocking = (Blocking) a;
                 isBlocking = true;
                 isOrderBlocking = blocking.value();
             } else if (a instanceof HandleEnd) {
-                isHandleEnd = true ;
+                isHandleEnd = true;
             }
         }
         this.isBlocking = isBlocking;
@@ -68,21 +69,21 @@ public class MethodCache {
             parameterMap.put(parameter, annotations);
             for (Annotation annotation : annotations) {
                 if (annotation instanceof FieldMap
-                            || annotation instanceof QueryMap
-                            || annotation instanceof HeaderMap
-                            || annotation instanceof UploadFileMap
-                            || annotation instanceof PathMap) {
+                        || annotation instanceof QueryMap
+                        || annotation instanceof HeaderMap
+                        || annotation instanceof UploadFileMap
+                        || annotation instanceof PathMap) {
                     mapSize++;
                 } else if (annotation instanceof Field) {
-                    if (!Constants.isNullValue(((Field)annotation).defaultValue())) defaultValueSize++;
+                    if (!Constants.isNullValue(((Field) annotation).defaultValue())) defaultValueSize++;
                 } else if (annotation instanceof Query) {
-                    if (!Constants.isNullValue(((Query)annotation).defaultValue())) defaultValueSize++;
+                    if (!Constants.isNullValue(((Query) annotation).defaultValue())) defaultValueSize++;
                 } else if (annotation instanceof Header) {
-                    if (!Constants.isNullValue(((Header)annotation).defaultValue())) defaultValueSize++;
+                    if (!Constants.isNullValue(((Header) annotation).defaultValue())) defaultValueSize++;
                 } else if (annotation instanceof Path) {
-                    if (!Constants.isNullValue(((Path)annotation).defaultValue())) defaultValueSize++;
+                    if (!Constants.isNullValue(((Path) annotation).defaultValue())) defaultValueSize++;
                 } else if (annotation instanceof Body) {
-                    if (!Constants.isNullValue(((Body)annotation).defaultValue())) defaultValueSize++;
+                    if (!Constants.isNullValue(((Body) annotation).defaultValue())) defaultValueSize++;
                 } else if (annotation instanceof UploadFile) {
                     fileSize++;
                 } else continue;
@@ -98,6 +99,7 @@ public class MethodCache {
 
     /**
      * method has return?
+     *
      * @return true if has return
      */
     public boolean hasReturn() {
@@ -106,6 +108,7 @@ public class MethodCache {
 
     /**
      * get actual method instance
+     *
      * @return method instance
      */
     public Method getMethod() {
@@ -114,6 +117,7 @@ public class MethodCache {
 
     /**
      * get return type
+     *
      * @return method return type
      */
     public Class getReturnType() {
@@ -122,6 +126,7 @@ public class MethodCache {
 
     /**
      * get method parameters
+     *
      * @return parameters
      */
     public Parameter[] getParameters() {
@@ -130,6 +135,7 @@ public class MethodCache {
 
     /**
      * get method annotations
+     *
      * @return annotation array
      */
     public Annotation[] getAnnotations() {
@@ -138,16 +144,18 @@ public class MethodCache {
 
     /**
      * find first matched annotation
+     *
      * @param annotationClazz annotation class to find.
-     * @param <T> class type
+     * @param <T>             class type
      * @return annotation instance or null if not find.
      */
-    public<T extends Annotation> T firstAnnotation(Class<T> annotationClazz) {
+    public <T extends Annotation> T firstAnnotation(Class<T> annotationClazz) {
         return CollectionUtils.firstElement(annotations, annotationClazz);
     }
 
     /**
      * is blocking method.
+     *
      * @return true if yes
      */
     public boolean isBlocking() {
@@ -156,6 +164,7 @@ public class MethodCache {
 
     /**
      * is order blocking method.
+     *
      * @return true if yes
      */
     public boolean isOrderBlocking() {
@@ -164,6 +173,7 @@ public class MethodCache {
 
     /**
      * is method has handled end
+     *
      * @return true if yes
      */
     public boolean isHandleEnd() {
@@ -172,6 +182,7 @@ public class MethodCache {
 
     /**
      * get parameter annotations
+     *
      * @param parameter parameter
      * @return annotations
      */
@@ -181,6 +192,7 @@ public class MethodCache {
 
     /**
      * annotated parameter size
+     *
      * @return parameter size
      */
     public int getAnnotatedParameterSize() {
@@ -189,6 +201,7 @@ public class MethodCache {
 
     /**
      * annotated but not map parameter size
+     *
      * @return
      */
     public int getNonMapAnnotatedParameterSize() {
@@ -197,6 +210,7 @@ public class MethodCache {
 
     /**
      * has annotated but not map parameter
+     *
      * @return true if yes
      */
     public boolean hasNonMapAnnotatedParameter() {
@@ -205,6 +219,7 @@ public class MethodCache {
 
     /**
      * parameter size which has default value
+     *
      * @return parameter size
      */
     public int getDefaultValueParameterSize() {
@@ -213,6 +228,7 @@ public class MethodCache {
 
     /**
      * has parameter with default value
+     *
      * @return true if yes
      */
     public boolean hasParameterWithDefaultValue() {
@@ -221,6 +237,7 @@ public class MethodCache {
 
     /**
      * map parameter size
+     *
      * @return size
      */
     public int getMapParameterSize() {
@@ -229,6 +246,7 @@ public class MethodCache {
 
     /**
      * file parameter size
+     *
      * @return size
      */
     public int getFileParameterSize() {
@@ -309,7 +327,7 @@ public class MethodCache {
                     } else if (parameterType == FileUpload.class) {
                         value = context.fileUploads().iterator().next();
                     } else {
-                        value = transParam(context.getBodyAsString(), withDefaultValue ? ((Body)annotation).defaultValue() : null, parameterType, separator, serializer);
+                        value = transParam(context.getBodyAsString(), withDefaultValue ? ((Body) annotation).defaultValue() : null, parameterType, separator, serializer);
                     }
                     break;
                 } else if (annotation instanceof Context) {
@@ -334,14 +352,16 @@ public class MethodCache {
 
     private static Object transParams(final List<String> params, final String defaultValue, final Class<?> target, final Separator separator, final Serializer serializer) {
         if (params.isEmpty() && Constants.isNullValue(defaultValue)) return null;
-        else if (!target.isArray() && !List.class.isAssignableFrom(target)) return transParam(params.isEmpty() ? null : params.get(0), defaultValue, target, separator, serializer);
+        else if (!target.isArray() && !List.class.isAssignableFrom(target))
+            return transParam(params.isEmpty() ? null : params.get(0), defaultValue, target, separator, serializer);
         if (separator != null) {
             Class element = target.isArray() ? target.getComponentType() : separator.type();
             Object r = params.stream().flatMap(s -> {
                 Object value = transListParam(s, element, separator, serializer);
-                if (value != null) return ((List) value).stream(); else return Stream.empty();
+                if (value != null) return ((List) value).stream();
+                else return Stream.empty();
             }).collect(Collectors.toList());
-            List list = (List)r;
+            List list = (List) r;
             if (list.isEmpty()) list = transListParam(defaultValue, element, separator, serializer);
             return list == null ? null : target.isArray() ? CollectionUtils.toTypedArray(list, target.getComponentType()) : list;
         } else {
@@ -394,15 +414,17 @@ public class MethodCache {
             start = separator.start();
             end = separator.end();
         }
-        return (List)transParam(param, null, List.class, element, sep, start, end, serializer);
+        return (List) transParam(param, null, List.class, element, sep, start, end, serializer);
     }
 
     private static Object transSimpleParam(String param, Class<?> target, Serializer serializer) {
-        return transParam(param, null, target, null, null, null,  null, serializer);
+        return transParam(param, null, target, null, null, null, null, serializer);
     }
 
     private static Object transMap(MultiMap content, Class target) {
-        return target == MultiMap.class ? new GenericMultiMap(content) : CollectionUtils.toMap(content);
+        return target == CaseInsensitiveHeaders.class
+                ? new CaseInsensitiveHeaders().addAll(content) : target == MultiMap.class
+                ? new GenericMultiMap(content) : CollectionUtils.toMap(content);
     }
 
 }
