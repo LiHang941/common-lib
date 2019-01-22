@@ -10,13 +10,10 @@ import com.github.lihang941.example.service.TestService;
 import com.github.lihang941.vertx.rest.*;
 import com.github.lihang941.web.autoconfigure.Controller;
 import com.github.pagehelper.Page;
-import io.vertx.core.MultiMap;
+import io.vertx.core.http.CaseInsensitiveHeaders;
 import io.vertx.core.http.HttpServerResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
@@ -65,7 +62,7 @@ public class TestResource {
 
     @URL("list")
     @GET
-    public void get(@HeaderMap MultiMap headers, @Context Serializer serializer, @Context HttpServerResponse response) {
+    public void get(@HeaderMap CaseInsensitiveHeaders headers, @Context Serializer serializer, @Context HttpServerResponse response) {
         OffsetBean offsetBean = RequestTool.toOffsetBean(headers);
         Page<Test> pageList = testService.offsetList(offsetBean);
         RequestTool.pageEnd(pageList.getTotal(),
