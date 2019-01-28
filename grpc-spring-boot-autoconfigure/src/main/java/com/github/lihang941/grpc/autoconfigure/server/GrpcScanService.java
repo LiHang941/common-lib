@@ -60,10 +60,6 @@ public class GrpcScanService {
                             }
                         }
                 );
-    }
-
-    @PostConstruct
-    public void onCreate() {
         try {
             vertxServer = vertxServerBuilder.build().start();
             logger.info(MessageFormat.format("Vertx Grpc Server Start Success Listening {0}:{1}", host, port));
@@ -72,6 +68,8 @@ public class GrpcScanService {
             throw new RuntimeException(e);
         }
     }
+
+
 
 
     @PreDestroy
