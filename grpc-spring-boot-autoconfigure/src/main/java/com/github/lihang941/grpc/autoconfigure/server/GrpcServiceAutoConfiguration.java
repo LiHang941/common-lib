@@ -1,6 +1,7 @@
 package com.github.lihang941.grpc.autoconfigure.server;
 
 import io.vertx.core.Vertx;
+import io.vertx.grpc.VertxServerBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -18,10 +19,18 @@ public class GrpcServiceAutoConfiguration {
     @Autowired
     private GrpcServerProperties clientServiceProperties;
 
+
     @ConditionalOnMissingBean
     @Bean
-    public GrpcScanService grpcScanService(Vertx vertx) {
-        return new GrpcScanService(clientServiceProperties.getHost(),clientServiceProperties.getPort(),vertx);
+    public VertxServerBuilder vertxServerBuilder(Vertx vertx) {
+        return VertxServerBuilder.forAddress(vertx, clientServiceProperties.getHost(), clientServiceProperties.getPort());
+    }
+
+
+    @ConditionalOnMissingBean
+    @Bean
+    public GrpcScanService grpcScanService(VertxServerBuilder vertxServerBuilder) {
+        return new GrpcScanService(clientServiceProperties.getHost(), clientServiceProperties.getPort(), vertxServerBuilder);
     }
 
     @ConditionalOnMissingBean

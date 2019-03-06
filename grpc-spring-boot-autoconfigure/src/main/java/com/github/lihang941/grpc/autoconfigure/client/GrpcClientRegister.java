@@ -24,8 +24,10 @@ public class GrpcClientRegister implements BeanPostProcessor {
     private static final Logger logger = Logger.getLogger("GrpcClientRegister");
 
     private Map<String, ClientServiceProperties> managedChannelConfigMap;
+    private ManagedChannelFilter managedChannelFilter;
 
-    public GrpcClientRegister(List<ClientServiceProperties> clientServiceProperties) {
+    public GrpcClientRegister(List<ClientServiceProperties> clientServiceProperties, ManagedChannelFilter managedChannelFilter) {
+        this.managedChannelFilter = managedChannelFilter;
         this.managedChannelConfigMap = new HashMap<>();
         if (clientServiceProperties == null || clientServiceProperties.size() < 0) {
             logger.warning("Grpc Client Server Config Cannot be null");
@@ -56,10 +58,7 @@ public class GrpcClientRegister implements BeanPostProcessor {
                 GrpcClient grpcClient = field.getAnnotation(GrpcClient.class);
                 ClientServiceProperties clientServiceProperties = managedChannelConfigMap.get(grpcClient.serverName());
                 Assert.notNull(clientServiceProperties, "rpc server name [" + grpcClient.serverName() + "] 不存在");
-                ManagedChannel managedChannel = ManagedChannelBuilder
-                        .forAddress(clientServiceProperties.getAddress(), clientServiceProperties.getPort())
-                        .usePlaintext()
-                        .build();
+                ManagedChannel managedChannel = this.managedChannelFilter.handle(clientServiceProperties).build();
                 try {
                     Class<?> type = field.getType();
                     String name = type.getName();

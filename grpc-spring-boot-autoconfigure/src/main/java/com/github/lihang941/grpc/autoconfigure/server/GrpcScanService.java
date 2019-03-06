@@ -31,10 +31,10 @@ public class GrpcScanService {
     private String host;
     private int port;
 
-    public GrpcScanService(String host, int port, Vertx vertx) {
+    public GrpcScanService(String host, int port, VertxServerBuilder vertxServerBuilder) {
         this.host = host;
         this.port = port;
-        this.vertxServerBuilder = VertxServerBuilder.forAddress(vertx, host, port);
+        this.vertxServerBuilder = vertxServerBuilder;
     }
 
     @EventListener
