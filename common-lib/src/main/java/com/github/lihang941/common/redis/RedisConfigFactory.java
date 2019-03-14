@@ -1,18 +1,25 @@
 package com.github.lihang941.common.redis;
 
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.interceptor.KeyGenerator;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.util.ClassUtils;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author : lihang1329@gmail.com
@@ -20,27 +27,55 @@ import java.time.Duration;
  */
 public class RedisConfigFactory {
 
+
     /**
      * 缓存管理
+     *
      * @param duration
      * @param redisConnectionFactory
      * @return
      */
-    public static CacheManager defaultCacheManager(Duration duration,RedisConnectionFactory redisConnectionFactory) {
+    public static CacheManager defaultCacheManager(Duration duration, Map<String, RedisCacheConfiguration> redisCacheConfigurationMap, RedisConnectionFactory redisConnectionFactory) {
+        //初始化一个RedisCacheWriter
+        RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory);
+        if (redisCacheConfigurationMap == null) {
+            return new RedisCacheManager(redisCacheWriter,
+                    getRedisCacheConfigurationWithTtl(duration));
+        } else {
+            return new RedisCacheManager(redisCacheWriter,
+                    getRedisCacheConfigurationWithTtl(duration),
+                    redisCacheConfigurationMap);
+        }
+    }
+
+    /**
+     * 获取缓存配置
+     * @param duration
+     * @return
+     */
+    public static RedisCacheConfiguration getRedisCacheConfigurationWithTtl(Duration duration) {
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        jackson2JsonRedisSerializer.setObjectMapper(
+                new ObjectMapper().setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY)
+                        .enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL)
+        );
+
         RedisCacheConfiguration defaultCacheConfig = RedisCacheConfiguration
                 .defaultCacheConfig()
-                .entryTtl(duration)
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new FastJsonRedisSerializer<>(Object.class)));
-        RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory);
-        return new RedisCacheManager(redisCacheWriter, defaultCacheConfig);
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer)); // 设置value序列化方式
+        if (duration != null) {
+            defaultCacheConfig.entryTtl(duration);
+        }
+        return defaultCacheConfig;
     }
 
 
     /**
      * cache key生成
+     *
      * @return
      */
-    public static KeyGenerator cacheGenerator(){
+    public static KeyGenerator cacheGenerator() {
         return (target, method, params) -> {
             StringBuilder key = new StringBuilder();
             key.append(target.getClass().getSimpleName()).append(".").append(method.getName()).append(":");

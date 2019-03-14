@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
  * @author : lihang1329@gmail.com
  * @since : 2018/9/3
  */
-public abstract class JsonRedisTemplate<T> extends RedisTemplate<String,T> {
+public class JsonRedisTemplate<T> extends RedisTemplate<String, T> {
 
     public JsonRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
         Type type = this.getClass().getGenericSuperclass();
