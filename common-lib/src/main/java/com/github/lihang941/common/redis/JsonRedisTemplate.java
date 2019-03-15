@@ -27,6 +27,8 @@ public class JsonRedisTemplate<T> extends RedisTemplate<String, T> {
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
         setKeySerializer(stringRedisSerializer);
         setHashKeySerializer(stringRedisSerializer);
+
+        afterPropertiesSet();
     }
 
 }
