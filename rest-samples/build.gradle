@@ -14,7 +14,11 @@ dependencies {
 
     compile "org.springframework:spring-jdbc:$springVersion"
     compile "org.springframework.boot:spring-boot-starter:$springBootVersion"
+    compile "org.springframework.boot:spring-boot-starter-data-redis:$springBootVersion"
+
+
     compile "org.mybatis:mybatis:$mybatisVersion"
+
 
     compileOnly "org.projectlombok:lombok:1.18.4"
 

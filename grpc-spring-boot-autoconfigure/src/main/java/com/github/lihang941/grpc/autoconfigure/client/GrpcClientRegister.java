@@ -16,6 +16,8 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
+ * Grpc client 注册器
+ *
  * @author : lihang1329@gmail.com
  * @since : 2018/11/2
  */

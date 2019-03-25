@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
+ * 启用默认配置
  * @author : lihang941
  * @since : 2019/1/15
  */

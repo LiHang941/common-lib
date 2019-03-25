@@ -1,12 +1,10 @@
 package com.github.lihang941.common.redis;
 
-import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.interceptor.KeyGenerator;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
@@ -16,9 +14,7 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.util.ClassUtils;
 
 import java.lang.reflect.Array;
-import java.lang.reflect.Method;
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -50,6 +46,7 @@ public class RedisConfigFactory {
 
     /**
      * 获取缓存配置
+     *
      * @param duration
      * @return
      */

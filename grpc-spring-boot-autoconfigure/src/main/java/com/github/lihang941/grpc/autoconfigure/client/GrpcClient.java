@@ -10,5 +10,10 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface GrpcClient {
+
+    /**
+     * 对应配置项中的 ClientServiceProperties.name
+     * @return
+     */
     String serverName();
 }

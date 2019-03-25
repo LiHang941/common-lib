@@ -9,11 +9,11 @@ import java.io.UnsupportedEncodingException;
  * @author : lihang1329@gmail.com
  * @since : 2018/9/3
  */
-public class LongRedisSerializer implements RedisSerializer<Long> {
+public class BooleanRedisSerializer implements RedisSerializer<Boolean> {
 
 
     @Override
-    public byte[] serialize(Long l) throws SerializationException {
+    public byte[] serialize(Boolean l) throws SerializationException {
         try {
             return l == null ? new byte[0] : l.toString().getBytes("UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -23,14 +23,14 @@ public class LongRedisSerializer implements RedisSerializer<Long> {
     }
 
     @Override
-    public Long deserialize(byte[] bytes) throws SerializationException {
+    public Boolean deserialize(byte[] bytes) throws SerializationException {
         if (bytes == null) {
             return null;
         } else {
             try {
                 String s = new String(bytes, "UTF-8");
-                return Long.parseLong(s);
-            } catch (UnsupportedEncodingException | NumberFormatException e) {
+                return Boolean.parseBoolean(s);
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
                 return null;
             }

@@ -5,21 +5,20 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
- * @author : lihang1329@gmail.com
- * @since : 2018/9/6
+ * @author : lihang941
+ * @since : 2019/3/25
  */
-public abstract class LongRedisTemplate extends RedisTemplate<String, Long> {
+public class BooleanRedisTemplate extends RedisTemplate<String, Long> {
 
-    public LongRedisTemplate(RedisConnectionFactory connectionFactory) {
+    public BooleanRedisTemplate(RedisConnectionFactory connectionFactory) {
         setConnectionFactory(connectionFactory);
 
-        LongRedisSerializer longRedisSerializer = new LongRedisSerializer();
-        setValueSerializer(longRedisSerializer);
-        setHashValueSerializer(longRedisSerializer);
-
+        BooleanRedisSerializer booleanRedisSerializer = new BooleanRedisSerializer();
+        setValueSerializer(booleanRedisSerializer);
+        setHashValueSerializer(booleanRedisSerializer);
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
         setKeySerializer(stringRedisSerializer);
         setHashKeySerializer(stringRedisSerializer);
-
+        afterPropertiesSet();
     }
 }

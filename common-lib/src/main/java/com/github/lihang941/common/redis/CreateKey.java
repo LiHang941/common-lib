@@ -2,9 +2,11 @@ package com.github.lihang941.common.redis;
 
 /**
  * key 生成器
+ *
  * @author : lihang1329@gmail.com
  * @since : 2018/8/30
  */
+@Deprecated
 public class CreateKey {
 
     private CreateKey() {
@@ -13,11 +15,11 @@ public class CreateKey {
     private static String KEY_HEAD = null;
 
 
-    public static void setHead(String head){
+    public static void setHead(String head) {
         KEY_HEAD = head;
     }
 
-    private static String getKeyHead(){
+    private static String getKeyHead() {
         if (KEY_HEAD == null)
             throw new RuntimeException("没有设置KEY_HEAD");
         return KEY_HEAD;

@@ -18,4 +18,5 @@ public class AppServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(AppServiceApplication.class, args);
     }
+
 }

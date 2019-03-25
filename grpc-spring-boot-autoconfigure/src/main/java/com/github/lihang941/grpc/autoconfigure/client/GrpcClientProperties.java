@@ -5,6 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.util.List;
 
 /**
+ * grpc client 配置
  * @author : lihang941
  * @since : 2019/1/15
  */

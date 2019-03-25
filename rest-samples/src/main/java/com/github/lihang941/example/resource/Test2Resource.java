@@ -2,6 +2,8 @@ package com.github.lihang941.example.resource;
 
 import com.github.lihang941.common.bean.IdDto;
 import com.github.lihang941.common.page.OffsetBean;
+import com.github.lihang941.common.redis.CreateKey;
+import com.github.lihang941.common.redis.JsonRedisTemplate;
 import com.github.lihang941.common.vertx.RequestTool;
 import com.github.lihang941.example.convert.Test2Convert;
 import com.github.lihang941.example.dto.Test2Dto;
@@ -14,6 +16,8 @@ import io.vertx.core.MultiMap;
 import io.vertx.core.http.CaseInsensitiveHeaders;
 import io.vertx.core.http.HttpServerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.BoundValueOperations;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -30,6 +34,17 @@ public class Test2Resource {
 
     @Autowired
     private Test2Service test2Service;
+
+    private JsonRedisTemplate<Test2> jsonRedisTemplate;
+
+
+    private BoundValueOperations<String, Test2> stringTest2BoundValueOperations;
+
+    public Test2Resource(RedisConnectionFactory redisConnectionFactory) {
+        jsonRedisTemplate = new JsonRedisTemplate<Test2>(redisConnectionFactory){};
+        stringTest2BoundValueOperations = jsonRedisTemplate.boundValueOps(CreateKey.create("test", "redis"));
+        stringTest2BoundValueOperations.set(new Test2().setId(123L).setTestName("hhh"));
+    }
 
     @POST
     public IdDto add(@Body Test2Dto test2Dto) {
@@ -75,6 +90,12 @@ public class Test2Resource {
                         .map(Test2Convert.toTest2Dto())
                         .collect(Collectors.toList())
                 , response, serializer);
+    }
+
+    @URL("redis")
+    @GET
+    public Test2 redisTest() {
+        return stringTest2BoundValueOperations.get();
     }
 
 }

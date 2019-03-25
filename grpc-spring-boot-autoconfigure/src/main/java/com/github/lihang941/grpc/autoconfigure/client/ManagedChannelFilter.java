@@ -3,16 +3,13 @@ package com.github.lihang941.grpc.autoconfigure.client;
 import io.grpc.ManagedChannelBuilder;
 
 /**
+ * Channel 生成器
+ *
  * @author : lihang941
  * @since : 2019/3/6
  */
-public class ManagedChannelFilter {
+public interface ManagedChannelFilter {
 
-    public ManagedChannelBuilder handle(ClientServiceProperties clientServiceProperties) {
-        ManagedChannelBuilder<?> o = ManagedChannelBuilder
-                .forAddress(clientServiceProperties.getAddress(), clientServiceProperties.getPort())
-                .usePlaintext();
-        return o;
-    }
+    ManagedChannelBuilder handle(ClientServiceProperties clientServiceProperties);
 
 }

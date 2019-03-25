@@ -5,10 +5,18 @@ package com.github.lihang941.grpc.autoconfigure.client;
  * @since : 2019/1/15
  */
 public class ClientServiceProperties {
-
+    /**
+     * GRPC 服务地址
+     */
     private String address;
-    private int port;
+    /**
+     * GRPC 服务名称 （全局唯一）
+     */
     private String name;
+    /**
+     * GRPC 端口
+     */
+    private int port;
 
     public String getAddress() {
         return address;

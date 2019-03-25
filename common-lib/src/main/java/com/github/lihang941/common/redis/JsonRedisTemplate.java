@@ -12,12 +12,12 @@ import java.lang.reflect.Type;
  * @author : lihang1329@gmail.com
  * @since : 2018/9/3
  */
-public class JsonRedisTemplate<T> extends RedisTemplate<String, T> {
+public abstract class JsonRedisTemplate<T> extends RedisTemplate<String, T> {
 
     public JsonRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
         Type type = this.getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) type; // JsonRedisTemplate<Employee>
-        Type types[] = pt.getActualTypeArguments();
+        Type[] types = pt.getActualTypeArguments();
         Class<T> clazz = (Class<T>) types[0];
         setConnectionFactory(redisConnectionFactory);
         FastJsonRedisSerializer<T> fastJsonRedisSerializer = new FastJsonRedisSerializer<>(clazz);
@@ -27,7 +27,6 @@ public class JsonRedisTemplate<T> extends RedisTemplate<String, T> {
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
         setKeySerializer(stringRedisSerializer);
         setHashKeySerializer(stringRedisSerializer);
-
         afterPropertiesSet();
     }
 

@@ -62,7 +62,7 @@ public class GrpcScanService {
                 );
         try {
             vertxServer = vertxServerBuilder.build().start();
-            logger.info(MessageFormat.format("Vertx Grpc Server Start Success Listening {0}:{1}", host, String.valueOf(port)));
+            logger.info(MessageFormat.format("vert.x grpc server start Success listening {0}:{1}", host, String.valueOf(port)));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
