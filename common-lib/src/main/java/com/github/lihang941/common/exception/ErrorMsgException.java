@@ -12,24 +12,30 @@ public class ErrorMsgException extends RuntimeException {
 
     private int code = 400;
 
-    public ErrorMsgException(String errorMessage, Object... obj) {
+    /**
+     * Available Message Template
+     *
+     * @param errorMessage
+     * @param args
+     */
+    public ErrorMsgException(String errorMessage, Object... args) {
         super(errorMessage);
-        if (obj == null || obj.length == 0) {
+        if (args == null || args.length == 0) {
             this.errorMessage = errorMessage;
         } else {
-            this.errorMessage = MessageFormat.format(errorMessage, obj);
+            this.errorMessage = MessageFormat.format(errorMessage, args);
         }
 
     }
 
-    public ErrorMsgException(int code, String errorMessage, Object... obj) {
+    public ErrorMsgException(int code, String errorMessage, Object... args) {
         super(errorMessage);
         this.errorMessage = errorMessage;
         this.code = code;
-        if (obj == null || obj.length == 0) {
+        if (args == null || args.length == 0) {
             this.errorMessage = errorMessage;
         } else {
-            this.errorMessage = MessageFormat.format(errorMessage, obj);
+            this.errorMessage = MessageFormat.format(errorMessage, args);
         }
     }
 
