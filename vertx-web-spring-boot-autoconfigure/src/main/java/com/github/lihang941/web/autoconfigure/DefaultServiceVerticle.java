@@ -2,6 +2,7 @@ package com.github.lihang941.web.autoconfigure;
 
 import com.github.lihang941.vertx.rest.Serializer;
 import com.github.lihang941.vertx.rest.SimpleRestServer;
+import io.netty.handler.codec.http.HttpResponseStatus;
 import io.vertx.core.Context;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Handler;
@@ -46,6 +47,8 @@ public class DefaultServiceVerticle extends SimpleRestServer {
         LOGGER.log(Level.WARNING, "Http Server ERROR", throwable);
         if (defaultErrorHandle != null) {
             defaultErrorHandle.invoke(response, serializer, throwable);
+        } else {
+            response.setStatusCode(500).end(buildErrorMessage(throwable, serializer));
         }
     }
 
@@ -86,7 +89,7 @@ public class DefaultServiceVerticle extends SimpleRestServer {
         applicationContext.getBeansWithAnnotation(WebContext.class).values().forEach(v -> {
             WebContext annotation = v.getClass().getAnnotation(WebContext.class);
             if (annotation.registerClass().length == 0) {
-                restRouteMapper.registerContext((Class) v.getClass(), v);
+                restRouteMapper.registerContext((Class<Object>) v.getClass(), v);
             } else {
                 for (Class registerClass : annotation.registerClass()) {
                     if (registerClass.isInstance(v)) {
@@ -158,14 +161,23 @@ public class DefaultServiceVerticle extends SimpleRestServer {
      */
     @Override
     protected void onRouterFailure(HttpServerResponse response, Throwable throwable, Serializer serializer) {
-        if (throwable instanceof InvocationTargetException) {
-            throwable = ((InvocationTargetException) throwable).getTargetException();
-        }
-        ErrorHandle callbackMethod = methodMap.get(throwable.getClass());
-        if (callbackMethod != null) {
-            callbackMethod.invoke(response, serializer, throwable);
+        if (response.getStatusCode() <= 0) response.setStatusCode(HttpResponseStatus.INTERNAL_SERVER_ERROR.code());
+        if (throwable != null) {
+            if (throwable instanceof InvocationTargetException) {
+                throwable = ((InvocationTargetException) throwable).getTargetException();
+                if (throwable == null) {
+                    response.end();
+                    return;
+                }
+            }
+            ErrorHandle callbackMethod = methodMap.get(throwable.getClass());
+            if (callbackMethod != null) {
+                callbackMethod.invoke(response, serializer, throwable);
+            } else {
+                defaultErrorHandle(response, serializer, throwable);
+            }
         } else {
-            defaultErrorHandle(response, serializer, throwable);
+            response.end();
         }
     }
 
