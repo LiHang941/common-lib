@@ -20,4 +20,7 @@ public interface WebSocketHandle {
 
     default void handler(ServerWebSocket webSocket, Buffer buffer) {
     }
+
+    default void connectSuccess(ServerWebSocket webSocket) {
+    }
 }

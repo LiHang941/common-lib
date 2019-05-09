@@ -127,25 +127,26 @@ public class DefaultServiceVerticle extends SimpleRestServer {
                     }
                 }
         );
-
         server.websocketHandler(webSocket -> {
             if (socketHandle.containsKey(webSocket.path())) {
                 WebSocketHandle webSocketHandle = socketHandle.get(webSocket.path());
-                webSocket.closeHandler(c -> {
-                    webSocketHandle.closeHandler(webSocket);
-                });
+                webSocket.closeHandler(c ->
+                        webSocketHandle.closeHandler(webSocket)
+                );
 
-                webSocket.endHandler(end -> {
-                    webSocketHandle.endHandler(webSocket);
-                });
+                webSocket.endHandler(end ->
+                        webSocketHandle.endHandler(webSocket)
+                );
 
-                webSocket.exceptionHandler(ex -> {
-                    webSocketHandle.exceptionHandler(webSocket, ex);
-                });
+                webSocket.exceptionHandler(ex ->
+                        webSocketHandle.exceptionHandler(webSocket, ex)
+                );
 
-                webSocket.handler(buffer -> {
-                    webSocketHandle.handler(webSocket, buffer);
-                });
+                webSocket.handler(buffer ->
+                        webSocketHandle.handler(webSocket, buffer)
+                );
+
+                webSocketHandle.connectSuccess(webSocket);
             } else {
                 webSocket.reject();
             }
