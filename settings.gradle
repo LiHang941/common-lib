@@ -1,7 +1,6 @@
 include 'code-generator'
 include 'common-lib'
 include 'rest-mapper'
-include 'rest-samples'
 include 'tuples'
 include 'grpc-spring-boot-autoconfigure'
 include 'vertx-web-spring-boot-autoconfigure'
