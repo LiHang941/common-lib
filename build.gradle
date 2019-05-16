@@ -5,17 +5,16 @@ buildscript {
         commonLang3Version = '3.7'
         commonIOVersion = '1.3.2'
         commonsCodecVersion = '1.11'
-        springBootVersion = '2.1.1.RELEASE'
-        springVersion = '5.1.3.RELEASE'
-        mybatisVersion = '3.4.6'
-        mybatisSpringVersion = '1.3.2'
+        springVersion = '5.1.7.RELEASE'
+        springBootVersion = '2.1.5.RELEASE'
+        mybatisVersion = '3.5.1'
+        mybatisSpringVersion = '2.0.1'
         pagehelperVersion = '5.1.8'
-        fastjsonVersion = '1.2.54'
-        tkMybatisVersion = '4.1.2'
-        tkMybatisGeneratorVersion = '1.1.5'
-
         pageHelperSpringVersion = '1.2.10'
-        tkMapperSpringVersion = "2.1.0"
+        fastjsonVersion = '1.2.58'
+        tkMybatisVersion = '4.1.5'
+        tkMybatisGeneratorVersion = '1.1.5'
+        tkMapperSpringVersion = "2.1.5"
     }
 }
 
@@ -32,7 +31,7 @@ subprojects {
         options.encoding = "UTF-8"
     }
     repositories {
-        maven { url "http://maven.aliyun.com/nexus/content/groups/public"}
+        maven { url "https://maven.aliyun.com/nexus/content/groups/public"}
         maven { url "https://jitpack.io" }
         mavenCentral()
         jcenter()
@@ -45,6 +44,6 @@ subprojects {
 
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.10'
+task addWrapper(type: Wrapper) {
+    gradleVersion = '5.4.1'
 }

@@ -3,14 +3,12 @@ package com.github.lihang941.grpc.autoconfigure.server;
 import io.grpc.BindableService;
 import io.grpc.ServerInterceptor;
 import io.grpc.ServerInterceptors;
-import io.vertx.core.Vertx;
 import io.vertx.grpc.VertxServer;
 import io.vertx.grpc.VertxServerBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.text.MessageFormat;
