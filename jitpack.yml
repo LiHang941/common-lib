@@ -1,5 +1,0 @@
-jdk:
-  - openjdk8
-install:
-  - export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8"
-  - ./gradlew build publishToMavenLocal
