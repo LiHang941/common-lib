@@ -2,6 +2,9 @@ package com.github.lihang941.example.config;
 
 import com.github.lihang941.common.utils.FileService;
 import com.github.lihang941.web.autoconfigure.RequestHandler;
+import io.vertx.core.Handler;
+import io.vertx.ext.web.RoutingContext;
+import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.handler.impl.StaticHandlerImpl;
 import lombok.extern.slf4j.Slf4j;
 
@@ -11,11 +14,20 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @RequestHandler(path = "/static/*")
-public class StaticRequestHandler extends StaticHandlerImpl {
+public class StaticRequestHandler implements Handler<RoutingContext> {
+
+    private StaticHandler staticHandler;
 
     public StaticRequestHandler(FileService fileService) {
         log.info(fileService.getStaticDir().getAbsolutePath());
-        this.setAllowRootFileSystemAccess(true)
+        StaticHandler staticHandler = StaticHandler.create().setAllowRootFileSystemAccess(true)
                 .setWebRoot(fileService.getStaticDir().getAbsolutePath());
     }
+
+
+    @Override
+    public void handle(RoutingContext event) {
+        staticHandler.handle(event);
+    }
+
 }

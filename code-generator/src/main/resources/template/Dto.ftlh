@@ -1,6 +1,8 @@
 <#include "./head.ftlh">
 
 <#if lombok>
-@Data
+@Getter
+@Setter
+@ToString
 @Accessors(chain = true) </#if>
 public class ${entityName}Dto ${content}

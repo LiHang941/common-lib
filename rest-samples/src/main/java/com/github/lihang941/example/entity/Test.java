@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
 @Table(name = "\"test\"")
 public class Test {
     @Id
-    @Column(name = "id" , insertable = false)
+    @Column(name = "\"id\"")
     @GeneratedValue(generator = "JDBC")
     private Long id;
 
@@ -22,5 +22,9 @@ public class Test {
 
     public static final String ID = "id";
 
+    public static final String DB_ID = "id";
+
     public static final String TEST_NAME = "testName";
+
+    public static final String DB_TEST_NAME = "test_name";
 }

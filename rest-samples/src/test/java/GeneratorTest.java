@@ -42,7 +42,7 @@ public class GeneratorTest {
 
         DtoConfig dtoConfig = new DtoConfig(
                 new PathPackage(basePath, basePackage + ".dto"),
-                new PathPackage(basePath, basePackage + ".convert"));
+                new PathPackage(basePath, basePackage + ".convert")).setLombok(true);
 
         String modePath = TemplateGenerator.mkdir(daoConfig.getJavaModel()).getAbsolutePath();
 

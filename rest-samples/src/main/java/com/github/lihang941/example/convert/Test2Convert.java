@@ -7,7 +7,7 @@ import com.github.lihang941.example.entity.Test2;
 
 /**
  * @author : lihang1329@gmail.com
- * @since : 2018-12-04 15:11
+ * @since : 2019-05-16 16:46
  */
 
 public class Test2Convert extends BeanConvert {

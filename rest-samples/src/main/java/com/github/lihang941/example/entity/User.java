@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 @Table(name = "\"user\"")
 public class User {
     @Id
-    @Column(name = "user_id")
+    @Column(name = "\"user_id\"")
     @GeneratedValue(generator = "JDBC")
     private String userId;
 
@@ -29,9 +29,17 @@ public class User {
 
     public static final String USER_ID = "userId";
 
+    public static final String DB_USER_ID = "user_id";
+
     public static final String USER_NAME = "userName";
+
+    public static final String DB_USER_NAME = "user_name";
 
     public static final String CREATE_TIME = "createTime";
 
+    public static final String DB_CREATE_TIME = "create_time";
+
     public static final String USER_STATUS = "userStatus";
+
+    public static final String DB_USER_STATUS = "user_status";
 }
