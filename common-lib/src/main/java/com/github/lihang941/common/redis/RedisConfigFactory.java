@@ -61,7 +61,7 @@ public class RedisConfigFactory {
                 .defaultCacheConfig()
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer)); // 设置value序列化方式
         if (duration != null) {
-            defaultCacheConfig.entryTtl(duration);
+            defaultCacheConfig = defaultCacheConfig.entryTtl(duration);
         }
         return defaultCacheConfig;
     }
