@@ -1,5 +1,7 @@
 ## ！！停更！！
 
+转而拥抱spring webflux + mybatis plus
+
 ## 基于spring + vert.x 的高效开发工具库
 [![](https://jitpack.io/v/LiHang941/common-lib.svg)](https://jitpack.io/#LiHang941/common-lib)
 
